@@ -1,5 +1,11 @@
+"use client"
+import Categories from "@/components/Categories";
+import Tablet from "@/components/Tablet";
+
 export default function Promos() {
   return (
-    <h1>Promo Ramadhan</h1>
+    <Tablet>
+      <Categories/>
+  </Tablet>
   );
 }

@@ -1,4 +1,3 @@
-"use client"
 import { CartContext, CurrentMethodPaymentContext, IdCurrentCategoryContext, OpenModalContext, ResetProductContext, StateScreenTabletContext, TotalOrderContext } from "../utils/contexts";
 import OrderSide from "./OrderSide";
 import Categories from "./Categories";
@@ -12,7 +11,7 @@ import SideBar from "./SideBar";
 import {useState}from "react";
 import { methodsPayment } from "../utils/constants";
 
-function Tablet() {
+function Tablet({ children }) {
     const [screenIsOn, setScreenIsOn] = useState(true)
     const [idCurrentCategory, setIdCurrentCategory] = useState(1)
     const [cart, setCart] = useState([])
@@ -44,8 +43,7 @@ function Tablet() {
                                                             <SideBar />
                                                             <IdCurrentCategoryContext.Provider value={{idCurrentCategory, setIdCurrentCategory}}>
                                                                 <div className="flex flex-col space-y-8 col-span-10">
-                                                                    <Categories/>
-                                                                    <Products />
+                                                                    {children}
                                                                 </div>
                                                             </IdCurrentCategoryContext.Provider>
                                                         </div>

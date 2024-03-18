@@ -108,5 +108,16 @@ export const ProductsDatas = [
         'urlImage': '/products/ds-2.png',
         'id_category': 4,
         
+    },
+    {
+        'id': 1,
+        'name': 'Bismillah',
+        'note': 'Extra Sauce',
+        'price': 12.5,
+        'devise': '$',
+        'available': 12,
+        'urlImage': '/products/br-1.jpeg',
+        'id_category': 1,
+
     }
 ]

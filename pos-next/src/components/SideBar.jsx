@@ -1,5 +1,6 @@
 import SwitchButtonSideBar from "./SwitchButtonSideBar";
 import { useState } from "react";
+import Link from 'next/link'
 
 export default function SideBar() {
     const [sideBarIsVisible, setSideBarIsVisible] = useState(true);
@@ -16,12 +17,12 @@ export default function SideBar() {
                             </svg>
                             <span>Home</span>
                         </div>
-                        <div onClick={() => console.log("Test click 2")} className="flex flex-col space-y-1 items-center p-4 rounded-lg -pointer transition hover:opacity-80 hover:bg-[#AC511B]">
+                        <Link href="/menus" onClick={() => console.log("Test click 2")} className="flex flex-col space-y-1 items-center p-4 rounded-lg -pointer transition hover:opacity-80 hover:bg-[#AC511B]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
                             </svg> 
                             <span>Menu</span>
-                        </div>
+                        </Link>
                         <div onClick={() => console.log("Test click 3")} className="flex flex-col space-y-1 items-center p-4 rounded-lg -pointer transition hover:opacity-80 hover:bg-[#AC511B]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />

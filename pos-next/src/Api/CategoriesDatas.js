@@ -18,5 +18,10 @@ export const CategoriesDatas = [
         'id': 4,
         'label': 'Dessert',
         'urlImage':'/categories/dessert.svg'
+    },
+    {
+        'id': 4,
+        'label': 'Bukaan',
+        'urlImage':'/categories/dessert.svg'
     }
 ]
