@@ -7,8 +7,9 @@ export default function OrderRecap() {
     const {cart} = useContext(CartContext)
     const [subTotal, setSubTotal] = useState(0)
     const {totalOrder, setTotalOrder} = useContext(TotalOrderContext)
-    const tax = 10
+    const tax = 0
     let valueTax = useRef(0)
+    let [devise, setDevis] = useState('Rp.')
     let [cartHasBeenModified, setCartHasBeenModified] = useState(false)
 
     useEffect(() => {
@@ -21,7 +22,8 @@ export default function OrderRecap() {
         let totalCalulated = 0
         if (cart.length) {
             cart.forEach((product) => {
-                totalCalulated = totalCalulated + (product.price * product.qty)
+                setDevis(product.Devise)
+                totalCalulated = totalCalulated + (product.Price * product.qty)
             })
             pleaseLoading()
         }
@@ -29,8 +31,8 @@ export default function OrderRecap() {
         setSubTotal(totalCalulated)
         valueTax.current = totalCalulated * tax / 100
         setTotalOrder(subTotal + valueTax.current)
-        console.log("mouvement")
-        console.log(cart)
+        // console.log("mouvement")
+        // console.log(cart)
     }, [cart, valueTax, setTotalOrder,subTotal])
 
     return(
@@ -39,16 +41,16 @@ export default function OrderRecap() {
                 <div className={`flex flex-col ${cart.length ? 'opacity-100 translate-y-0 ' : 'opacity-0 -translate-y-10'} delay-200  space-y-4 duration-1000 transition-all text-sm `}>
                     <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>$ {subTotal}</span>
+                        <span>{devise}{subTotal}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Tax {tax}%</span>
-                        <span>${valueTax.current}</span>
+                        <span>{devise}{valueTax.current}</span>
                     </div>
                     <div className="py-4 text-2xl border-t border-dotted">
                         <div className="flex justify-between">
                             <span>Total</span>
-                            <span className={`${cartHasBeenModified ? 'translate-y-2  opacity-0' : 'opacity-100 translate-y-0'} transition duration-200`}>${totalOrder}</span>
+                            <span className={`${cartHasBeenModified ? 'translate-y-2  opacity-0' : 'opacity-100 translate-y-0'} transition duration-200`}>{devise}{totalOrder}</span>
                         </div>
                     </div>
                 </div>

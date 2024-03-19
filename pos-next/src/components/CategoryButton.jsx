@@ -6,11 +6,12 @@ export default function CategoryButton({category}) {
 
     return (
         <>
-            <div onClick={() => setIdCurrentCategory(category.id)} 
-                className={`flex flex-none space-x-2 border-2 transition duration-500  ${idCurrentCategory === category.id ? ' border-red-200 bg-red-500/30': 'border-stone-800'} px-3 py-2 rounded-lg hover:opacity-60`}
+            <div onClick={() => setIdCurrentCategory(category.Name)} 
+                className={`flex flex-none space-x-2 border-2 transition duration-500  ${idCurrentCategory === category.Name ? ' border-red-200 bg-red-500/30': 'border-stone-800'} px-3 py-2 rounded-lg hover:opacity-60`}
                 >
-                <img src={category.urlImage} className="w-6 h-6" alt="burger" />
-                <div>{category.label}</div>
+                {/* Using static image temporary */}
+                {category.ImageUrl.Valid && <img src={category.ImageUrl.String} alt={category.Name} className="w-10 h-10 rounded-full" />}
+                <div>{category.Name}</div>
             </div>
         </>
     );

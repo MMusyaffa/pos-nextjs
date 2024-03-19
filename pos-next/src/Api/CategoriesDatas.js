@@ -1,27 +1,27 @@
 export const CategoriesDatas = [
     {
-        'id': 1,
+        'id': "",
         'label': 'Burgers',
-        'urlImage':'/categories/burger.svg'
+        'urlImage': '/categories/burger.svg'
     },
     {
-        'id': 2,
+        'id': "dummy",
         'label': 'Noodles',
-        'urlImage':'/categories/noodle.svg'
+        'urlImage': '/categories/noodle.svg'
     },
     {
         'id': 3,
         'label': 'Drinks',
-        'urlImage':'/categories/drink.svg'
+        'urlImage': '/categories/drink.svg'
     },
     {
         'id': 4,
         'label': 'Dessert',
-        'urlImage':'/categories/dessert.svg'
+        'urlImage': '/categories/dessert.svg'
     },
     {
-        'id': 4,
+        'id': 5,
         'label': 'Bukaan',
-        'urlImage':'/categories/dessert.svg'
+        'urlImage': '/categories/dessert.svg'
     }
 ]

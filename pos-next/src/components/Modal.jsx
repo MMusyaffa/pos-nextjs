@@ -6,7 +6,7 @@ export default function Modal() {
     const {modalOpened, setModalOpened} = useContext(OpenModalContext)
 
     useEffect(() => {
-        console.log(modalOpened)
+        // console.log(modalOpened)
     }, [modalOpened])
     return (
         <>

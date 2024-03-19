@@ -1,13 +1,17 @@
 import { useContext, useState } from "react";
 import { CartContext, ResetProductContext } from "../utils/contexts";
+import writable from "@/utils/writable";
 export default function ProductsCart() {
     const [currentIdProduct, setCurrentIdProduct] = useState(null);
     const {setProductToReset} = useContext(ResetProductContext)
     const {cart, setCart} = useContext(CartContext)
 
     function removeProductInCart(productParam) {
-       setCart(cart.filter(product => product.id !== productParam.id))
-       setProductToReset(productParam)
+        const filteredCart = cart.filter(product => product.ID !== productParam.ID); 
+        setCart(filteredCart);
+        writable.setItem('cart', filteredCart)
+        
+        setProductToReset(productParam)
     }
 
     return (
@@ -15,23 +19,26 @@ export default function ProductsCart() {
             <div className="flex flex-col max-h-60 space-y-4 overflow-auto">
                 {
                     cart.map((productInCart) => 
-                        <div key={productInCart.id} onMouseLeave={() => setCurrentIdProduct(null)} onClick={() => setCurrentIdProduct(productInCart.id)} className={`flex flex-none bg-stone-700 rounded-md relative p-2 h-14 text-xs overflow-hidden transition-all duration-200 ease-in-out hover:opacity-80 }`}>
-                            <div className={`flex justify-between bg-[#2d2d2d] p-2 rounded-md absolute ${currentIdProduct === productInCart.id ? 'left-14' :'left-0'} transition-all duration-200 delay-200 h-full top-0 w-full shadow-xl shadow-rose-500/50`}>
+                        <div key={productInCart.ID} onMouseLeave={() => setCurrentIdProduct(null)} onClick={() => setCurrentIdProduct(productInCart.ID)} className={`flex flex-none bg-stone-700 rounded-md relative p-2 h-14 text-xs overflow-hidden transition-all duration-200 ease-in-out hover:opacity-80 }`}>
+                            <div className={`flex justify-between bg-[#2d2d2d] p-2 rounded-md absolute ${currentIdProduct === productInCart.ID ? 'left-14' :'left-0'} transition-all duration-200 delay-200 h-full top-0 w-full shadow-xl shadow-rose-500/50`}>
                                 <div className="flex space-x-2">
-                                    <div  className="h-full w-20 bg-cover bg-center rounded-lg" style={{backgroundImage: `url(${productInCart.urlImage})`}}  alt="burger-asiatique"></div>
+                                    {productInCart.ImageUrl.Valid ? 
+                                    <div  className="h-full w-20 bg-cover bg-center rounded-lg" style={{backgroundImage: `url(${productInCart.ImageUrl.String})`}}  alt="burger-asiatique"></div> :
+                                    <div className="h-full w-20 bg-cover bg-center rounded-lg text-3xl flex justify-center items-center" alt="burger-asiatique">{productInCart.ShortName}</div>}
+                                    
                                     <div className="flex flex-col justify-between">
                                     <div className="flex space-x-2">
-                                        <span title="Double Burger sgsgsgsgsggssgsgsggsgsggsgsgs sgsssgggs gsgg" className="max-w-32 text-el truncate" >{productInCart.name}</span>
+                                        <span title="Double Burger" className="max-w-32 text-el truncate" >{productInCart.Name}</span>
                                         <span>({productInCart.qty}X)</span>
                                     </div>
                                     <div className="flex items-center space-x-2 text-[10px]">
                                         <span className="h-1 w-1 rounded-full bg-stone-400"></span>
-                                        <span className="text-stone-400">{productInCart.note}</span>
+                                        <span className="text-stone-400">{productInCart.Note}</span>
                                     </div>
                                     </div>
                                 </div>
                                 <div className="flex justify-end items-end">
-                                <span>${productInCart.price * productInCart.qty}</span>
+                                <span>{productInCart.Devise} {productInCart.Price * productInCart.qty}</span>
                                 </div>
                             </div>
                             <div className="self-center p-2" onClick={() => removeProductInCart(productInCart)}>

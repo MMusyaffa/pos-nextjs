@@ -1,12 +1,50 @@
 import { useContext } from "react"
 import { methodsPayment } from "../utils/constants"
-import { TotalOrderContext } from "../utils/contexts"
+import { CartContext, OpenModalContext, TotalOrderContext } from "../utils/contexts"
 import { CurrentMethodPaymentContext} from "../utils/contexts";
+import writable from "@/utils/writable";
 
 
 export default function ContentModePaymentModal() {
     const {totalOrder} = useContext(TotalOrderContext)
     const {currentMethodPayment} = useContext(CurrentMethodPaymentContext)
+    const {_, setModalOpened} = useContext(OpenModalContext)
+    const {cart, setCart} = useContext(CartContext)
+
+    async function transaction() {
+
+        async function postTransaction() {
+            const orders = writable.getItem('cart').map((order) => {
+                return {
+                    item_id: order.ID,
+                    quantity_sold: order.qty,
+                    note: ""
+                }
+            });
+            
+            const response = await fetch('/api/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({orders})
+            })
+
+            const responseData = await response.json();
+            return responseData;
+        }
+
+        const result = await postTransaction()
+
+        if (!result.error){
+            //clear cart
+            writable.removeItem('cart')
+            setCart([])
+        }
+        
+        //refresh page
+        setModalOpened(false)
+    }
 
     return (
         <>
@@ -14,9 +52,9 @@ export default function ContentModePaymentModal() {
                 currentMethodPayment === methodsPayment.cash && 
                     <>
                         <div className="bg-black/40 p-4 rounded-md">
-                        <span className="text-2xl">Total: ${totalOrder}</span>
+                        <span className="text-2xl">Total: Rp. {totalOrder}</span>
                         </div>
-                        <div className="bg-white p-2 rounded-lg text-black text-center font-bold hover:opacity-60 transition">
+                        <div onClick={transaction} className="bg-white p-2 rounded-lg text-black text-center font-bold hover:opacity-60 transition">
                             Confirm
                         </div>
                     </>       
