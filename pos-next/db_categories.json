@@ -1,0 +1,29 @@
+{
+  "categories": [
+    {
+      "id": "1111",
+      "title": "Makanan 1",
+      "image": "https://img.icons8.com/fluency/48/meal.png"
+    },
+    {
+      "id": "7ac2",
+      "title": "Minuman 2",
+      "image": "https://img.icons8.com/fluency/48/green-tea.png"
+    },
+    {
+      "id": "7azz2",
+      "title": "Snack",
+      "image": "https://img.icons8.com/fluency/48/potato-chips.png"
+    },
+    {
+      "id": "7b42",
+      "title": "Ice Cream",
+      "image": "https://img.icons8.com/fluency/48/ice-cream-bowl.png"
+    },
+    {
+      "id": "3358",
+      "title": "Takjil Buka puasa",
+      "image": null
+    }
+  ]
+}
