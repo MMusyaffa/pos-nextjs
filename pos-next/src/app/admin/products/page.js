@@ -76,7 +76,7 @@ export default function ProductsList() {
                             <td>
                                 <img src={product.image} style={{ maxWidth: '90px' }} />
                             </td>
-                            <td>{product.title}</td>
+                            <td>{product.name}</td>
                             <td>{product.categories}</td>
                             <td>{formatRupiah(product.price.toString(), 'Rp.')}</td>
                             <td className="flex">

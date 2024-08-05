@@ -1,9 +1,21 @@
 
 import { useContext, useEffect, useState } from "react";
-import { ProductsDatas } from "../Api/ProductsDatas";
+// import { ProductsDatas } from "../Api/ProductsDatas";
 import { IdCurrentCategoryContext } from "../utils/contexts";
 import { sleep } from "../utils/helpers";
 import ProductItem from "./ProductItem";
+
+import dummyData from "../data/dummy.json";
+
+async function fetchProducts() {
+    if (process.env.USE_MOCK) {
+        // todo: fetch from backend
+    }
+    else {
+        console.log(dummyData.data.products)
+        return dummyData.data.products;
+    }
+}
 
 export default function Products() {
     const {idCurrentCategory} = useContext(IdCurrentCategoryContext)
@@ -12,9 +24,10 @@ export default function Products() {
     useEffect(() => {
         async function filterProduct(idCurrentCategory) {
             setProducts(null)
-            let fiteredProducts = ProductsDatas.filter((product) => product.id_category === idCurrentCategory)
-            await sleep(500)
-            setProducts(fiteredProducts)
+            fetchProducts()
+                .then(function (res) {
+                    setProducts(res.filter((product) => product.category_id === idCurrentCategory))
+                });
         }
 
         filterProduct(idCurrentCategory)

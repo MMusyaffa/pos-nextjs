@@ -2,20 +2,44 @@
   "data": {
     "products": [
       {
-        "id": "7aa2", "title": "Es Teh", "categories": "Ice Cream", "price": 10000000000000000, "image": "https://nilaigizi.com/assets/images/produk/produk_1578041377.jpg"
+        "id": "7aa2",
+        "name": "Es Teh",
+        "category_id": 4,
+        "price": 10000000000000000,
+        "image_url": "https://nilaigizi.com/assets/images/produk/produk_1578041377.jpg"
       },
       {
-        "id": "7ac2", "title": "Es Teler", "categories": "Minuman", "price": 450, "image": "https://www.frisianflag.com/storage/app/media/uploaded-files/es-teler-nikmat.jpg"
+        "id": "7ac2",
+        "name": "Es Teler",
+        "category_id": 1,
+        "price": 450,
+        "image_url": "https://www.frisianflag.com/storage/app/media/uploaded-files/es-teler-nikmat.jpg"
       },
       {
-        "id": "7azz2", "title": "Cappuccino", "categories": "Minuman", "price": 560, "image": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/article/ARTICLE-AYOMAKAN_20231103140453.jpg"
-      }    
+        "id": "7azz2",
+        "name": "Cappuccino",
+        "category_id": 2,
+        "price": 560,
+        "image_url": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/article/ARTICLE-AYOMAKAN_20231103140453.jpg"
+      }
     ],
     "categories": [
-      { "id": 1, "name": "Makanan" },
-      { "id": 2, "name": "Minuman" },
-      { "id": 3, "name": "Snack" },
-      { "id": 4, "name": "Ice Cream" }
+      {
+        "id": 1,
+        "name": "Makanan"
+      },
+      {
+        "id": 2,
+        "name": "Coffee"
+      },
+      {
+        "id": 3,
+        "name": "Snack"
+      },
+      {
+        "id": 4,
+        "name": "Ice Cream"
+      }
     ]
   }
 }
