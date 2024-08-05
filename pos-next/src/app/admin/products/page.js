@@ -5,17 +5,26 @@ import AddProduct from "./addProduct";
 import DeleteProduct from "./deleteProduct";
 import UpdateProduct from "./updateProduct";
 
+// import dummyData from "../../../../../data/dummy.json";
+
 // export const metadata = {
 //     title: "Product List",
 //   };
 
+const useApi = true;
+
 async function fetchProducts()
 {
-    const res = await fetch ("http://localhost:5000/products", {
-        cache: 'no-store', //untuk mengambil data pada setiap request
+    if (useApi) {
+        const res = await fetch ("http://localhost:5000/products", {
+            cache: 'no-store', //untuk mengambil data pada setiap request    
     });
 
     return res.json();
+    }
+    else {
+        return dummyData.data.products;
+    }
 }
 
 const formatRupiah = (angka, prefix) => {
