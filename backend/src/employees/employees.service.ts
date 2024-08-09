@@ -1,0 +1,174 @@
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { CreateEmployeeDto } from './dtos/create-employee.dto.js';
+import { hash, genSalt } from 'bcrypt';
+import { bcryptConstants } from '../auth/constants.js';
+import { DatabasesService } from '../databases/databases.service.js';
+
+export type Employee = {
+  id: string;
+  username: string;
+  password: string;
+  role: string;
+};
+
+@Injectable()
+export class EmployeesService {
+
+  constructor(
+    private readonly databaseService: DatabasesService
+  ) {}
+
+  private readonly employeesMock: Employee[] = [
+    {
+      id: 'EMPLOYEE-1',
+      username: 'admin',
+      password: '$2b$10$mVxdO97O1g8lUvmb/MNI5uMrBPpwJAPB7C0VwbdJ.CMrgXNF.x1Va',
+      role: 'admin',
+    },
+    {
+      id: 'EMPLOYEE-2',
+      username: 'cashier',
+      password: '$2b$10$mVxdO97O1g8lUvmb/MNI5uMrBPpwJAPB7C0VwbdJ.CMrgXNF.x1Va',
+      role: 'cashier',
+    }
+  ];
+
+  
+  // === Find All Employees ===
+  async findAll(): Promise<any> {
+    // Using mock
+    if (process.env.IS_USE_MOCK === 'true') {
+      return this.employeesMock;
+    }
+
+    // Using database
+    return this.databaseService.getKnex()
+      .select('id', 'username', 'role')
+      .from('employee');
+  }
+
+
+  // === Find One Employee ===
+  async findOne(username: string): Promise<Employee | undefined> {
+    // Using mock
+    if (process.env.IS_USE_MOCK === 'true') {
+      return this.employeesMock.find(employee => employee.username === username);
+    }
+
+    // Using database
+    return this.databaseService.getKnex()
+    .select('id', 'username', 'password', 'role')
+    .from('employee')
+    .where({ username })
+    .first();
+  }
+
+
+  // === Create Employee ===
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<any> {
+    // Create employee object
+    const inEmployee = new CreateEmployeeDto();
+    inEmployee.username = createEmployeeDto.username;
+    // hash password
+    inEmployee.password = await this.generatePasswordHash(createEmployeeDto.password);
+    inEmployee.role = createEmployeeDto.role;
+
+    // Using mock
+    if (process.env.IS_USE_MOCK === 'true') {
+      const employee = await this.findOne(createEmployeeDto.username);
+
+      if (employee) {
+        throw new BadRequestException('Employee already exists');
+      }
+
+      // insert employee
+      this.employeesMock.push({
+        id: `EMPLOYEE-${Date.now()}`,
+        ...inEmployee,
+      });
+      return true;
+    }
+  
+    // Using database
+    // transaction
+    try {
+      await this.databaseService.getKnex().transaction(async trx => {
+        const employee: Employee = await trx('employee').select('username').where({ username: createEmployeeDto.username }).first();
+
+        if (employee) {
+          throw new BadRequestException('Employee already exists');
+        }
+      
+        // insert employee
+        await trx('employee').insert({
+          id: `EMPLOYEE-${Date.now()}`,
+          ...inEmployee,
+        });
+      });
+    } 
+    catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Failed to create employee');
+    }
+  
+    return 'Employee created';
+  }
+
+
+  // === Change Password ===
+  async changePassword(username: string, newPassword: string): Promise<any> {
+    // Create employee object
+    const inEmployee = new CreateEmployeeDto();
+    // hash password
+    inEmployee.password = await this.generatePasswordHash(newPassword);
+
+    // Using mock
+    if (process.env.IS_USE_MOCK === 'true') {
+      const employee = await this.findOne(username);
+      if (!employee) {
+        throw new BadRequestException('Employee not found');
+      }
+      
+      // update
+      const index = this.employeesMock.findIndex(employee => employee.username === username);
+      this.employeesMock[index] = {
+        id: this.employeesMock[index].id,
+        ...inEmployee,
+      };
+      return true;
+    }
+
+    // Using database
+    // transaction
+    try {
+      await this.databaseService.getKnex().transaction(async trx => {
+        const employee: Employee = await trx('employee').select('username').where({ username }).first();
+        if (!employee) {
+          throw new BadRequestException('Employee not found');
+        }
+      
+        // update
+        await trx('employee').where({ username }).update({
+          password: inEmployee.password,
+        });
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Failed to change password');
+    }
+
+    return 'Password changed';
+  }
+
+
+  // Utils
+  // === Generate Password Hash ===
+  private async generatePasswordHash(password: string): Promise<string> {
+    const salt = await genSalt(bcryptConstants.saltRounds);
+    return await hash(password, salt);
+  }
+}
