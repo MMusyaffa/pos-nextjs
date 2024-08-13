@@ -39,16 +39,16 @@ export default function OrderRecap() {
                 <div className={`flex flex-col ${cart.length ? 'opacity-100 translate-y-0 ' : 'opacity-0 -translate-y-10'} delay-200  space-y-4 duration-1000 transition-all text-sm `}>
                     <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>$ {subTotal}</span>
+                        <span>Rp {subTotal}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Tax {tax}%</span>
-                        <span>${valueTax.current}</span>
+                        <span>Rp{valueTax.current}</span>
                     </div>
                     <div className="py-4 text-2xl border-t border-dotted">
                         <div className="flex justify-between">
                             <span>Total</span>
-                            <span className={`${cartHasBeenModified ? 'translate-y-2  opacity-0' : 'opacity-100 translate-y-0'} transition duration-200`}>${totalOrder}</span>
+                            <span className={`${cartHasBeenModified ? 'translate-y-2  opacity-0' : 'opacity-100 translate-y-0'} transition duration-200`}>Rp{totalOrder}</span>
                         </div>
                     </div>
                 </div>

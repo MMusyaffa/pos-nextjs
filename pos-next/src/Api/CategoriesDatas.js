@@ -20,8 +20,8 @@ export const CategoriesDatas = [
         'urlImage':'/categories/dessert.svg'
     },
     {
-        'id': 4,
+        'id': 5,
         'label': 'Bukaan',
-        'urlImage':'/categories/dessert.svg'
+        'urlImage':'/categories/'
     }
 ]

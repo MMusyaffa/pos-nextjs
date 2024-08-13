@@ -14,7 +14,7 @@ export default function ContentModePaymentModal() {
                 currentMethodPayment === methodsPayment.cash && 
                     <>
                         <div className="bg-black/40 p-4 rounded-md">
-                        <span className="text-2xl">Total: ${totalOrder}</span>
+                        <span className="text-2xl">Total: Rp{totalOrder}</span>
                         </div>
                         <div className="bg-white p-2 rounded-lg text-black text-center font-bold hover:opacity-60 transition">
                             Confirm
@@ -44,12 +44,12 @@ export default function ContentModePaymentModal() {
                         </div>
                         <div className="bg-white p-2 rounded-lg text-black text-center font-bold hover:opacity-60 transition">
                            <span className="mr-2">Pay</span> 
-                           <span className="font-bold">${totalOrder}</span>
+                           <span className="font-bold">Rp{totalOrder}</span>
                         </div>
                     </>       
             }
              {
-                currentMethodPayment === methodsPayment.wallet && 
+                currentMethodPayment === methodsPayment.ewallet && 
                     <>
                         <div className="flex flex-col space-y-4 bg-black/40 p-4 rounded-md">
                           <div className="flex flex-col space-y-1 self-center">
