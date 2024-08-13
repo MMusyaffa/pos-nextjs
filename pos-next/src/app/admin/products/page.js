@@ -11,7 +11,7 @@ import UpdateProduct from "./updateProduct";
 //     title: "Product List",
 //   };
 
-const useApi = true;
+const useApi = false;
 
 async function fetchProducts()
 {
