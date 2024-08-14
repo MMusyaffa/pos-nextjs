@@ -1,12 +1,24 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { methodsPayment } from "../utils/constants"
-import { TotalOrderContext } from "../utils/contexts"
+import { TotalOrderContext} from "../utils/contexts"
 import { CurrentMethodPaymentContext} from "../utils/contexts";
 
 
 export default function ContentModePaymentModal() {
     const {totalOrder} = useContext(TotalOrderContext)
+    // const {charge, setCashPayment, setCharge} = useContext(ChargePayment)
     const {currentMethodPayment} = useContext(CurrentMethodPaymentContext)
+
+    // const [cashPayment, setCashPaymentState] = useState(0);
+
+    // const handleInputChange = (e) => {
+    //     const cash = parseFloat(e.target.value);
+    //     setCashPaymentState(cash);
+    //     setCashPayment(cash);
+
+    //     const chargeAmount = cash - totalOrder;
+    //     setCharge(chargeAmount);
+    // }
 
     return (
         <>
@@ -15,6 +27,19 @@ export default function ContentModePaymentModal() {
                     <>
                         <div className="bg-black/40 p-4 rounded-md">
                         <span className="text-2xl">Total: Rp{totalOrder}</span>
+                        </div>
+                        <div className="bg-black/40 p-4 rounded-md flex items-center">
+                            <span className="text-2xl">Pay Rp </span>
+                            <input
+                                type="number"
+                                placeholder="0"
+                                className="ml-2 p-2 rounded-md text-2xl text-black"
+                                // value={cashPayment}
+                                // onChange={(e) => handleInputChange(e)}  // Optional: For handling the input value
+                            />
+                        </div>
+                        <div className="bg-black/40 p-4 rounded-md">
+                        <span className="text-2xl">Charge: Rp</span>
                         </div>
                         <div className="bg-white p-2 rounded-lg text-black text-center font-bold hover:opacity-60 transition">
                             Confirm
@@ -49,7 +74,7 @@ export default function ContentModePaymentModal() {
                     </>       
             }
              {
-                currentMethodPayment === methodsPayment.ewallet && 
+                currentMethodPayment === methodsPayment.qris && 
                     <>
                         <div className="flex flex-col space-y-4 bg-black/40 p-4 rounded-md">
                           <div className="flex flex-col space-y-1 self-center">

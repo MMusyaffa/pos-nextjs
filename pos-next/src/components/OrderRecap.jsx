@@ -7,7 +7,7 @@ export default function OrderRecap() {
     const {cart} = useContext(CartContext)
     const [subTotal, setSubTotal] = useState(0)
     const {totalOrder, setTotalOrder} = useContext(TotalOrderContext)
-    const tax = 10
+    const tax = 11
     let valueTax = useRef(0)
     let [cartHasBeenModified, setCartHasBeenModified] = useState(false)
 
@@ -39,7 +39,7 @@ export default function OrderRecap() {
                 <div className={`flex flex-col ${cart.length ? 'opacity-100 translate-y-0 ' : 'opacity-0 -translate-y-10'} delay-200  space-y-4 duration-1000 transition-all text-sm `}>
                     <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>Rp {subTotal}</span>
+                        <span>Rp{subTotal}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Tax {tax}%</span>

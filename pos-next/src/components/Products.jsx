@@ -12,7 +12,7 @@ export default function Products() {
     useEffect(() => {
         async function filterProduct(idCurrentCategory) {
             setProducts(null)
-            let fiteredProducts = ProductsDatas.filter((product) => product.id_category === idCurrentCategory)
+            let fiteredProducts = ProductsDatas.filter((product) => product.category_id === idCurrentCategory)
             await sleep(500)
             setProducts(fiteredProducts)
         }
@@ -23,7 +23,7 @@ export default function Products() {
    
     return (
         <>
-            <div className={`grid grid-cols-2 gap-2 max-h-[600px] overflow-auto mr-2  transition-all duration-1000 ${products ? 'opacity-100': 'opacity-0'}`}>
+            <div className={`grid grid-cols-2 gap-2 max-h-[900px] overflow-auto mr-2  transition-all duration-1000 ${products ? 'opacity-100': 'opacity-0'}`}>
                 {products && products.map((product)=> <ProductItem productProps={product} key={product.id} />) }
             </div>
         </>
