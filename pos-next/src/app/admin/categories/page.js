@@ -57,10 +57,10 @@ export default function CategoriesList() {
                                     {index + 1}
                                     </td>
                                 <td>
-                                    <img src={categories.image} style={{ maxWidth: '100px' }}/>
+                                    <img src={categories.image_url} style={{ maxWidth: '100px' }}/>
                                 </td>
                                 <td>
-                                    {categories.title}
+                                    {categories.name}
                                 </td>
                                 <td className="flex">
                                     <div className="mr-1">

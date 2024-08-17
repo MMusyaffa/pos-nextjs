@@ -1,0 +1,53 @@
+{
+    "products": [
+      {
+        "id": "7aa2",
+        "title": "Es Teh",
+        "categories": "Ice Cream",
+        "price": 10000000000000000,
+        "image": "https://nilaigizi.com/assets/images/produk/produk_1578041377.jpg"
+      },
+      {
+        "id": "7ac2",
+        "title": "Es Teler",
+        "categories": "Minuman",
+        "price": 450,
+        "image": "https://www.frisianflag.com/storage/app/media/uploaded-files/es-teler-nikmat.jpg"
+      },
+      {
+        "id": "7azz2",
+        "title": "Cappuccino",
+        "categories": "Minuman",
+        "price": 560,
+        "image": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/article/ARTICLE-AYOMAKAN_20231103140453.jpg"
+      },
+      {
+        "id": "7b42",
+        "title": "Nasi Goreng",
+        "categories": "Makanan",
+        "price": 123123123132,
+        "image": "https://riceinfo.com/wp-content/uploads/2022/09/nasi-goreng-recipe-800x800.jpg"
+      },
+      {
+        "id": "f171",
+        "title": "Tempura Udon",
+        "categories": "Makanan",
+        "price": 35022,
+        "image": "https://recipes.net/wp-content/uploads/2022/07/tempura-udon-soup.jpg"
+      },
+      {
+        "id": "6c79",
+        "title": "Chicken Fillet",
+        "categories": "Makanan",
+        "price": "123132",
+        "image": "https://img.taste.com.au/zGyJqWcu/taste/2016/11/barbecue-marinated-chicken-fillets-3071-1.jpeg"
+      },
+      {
+        "id": "5d31",
+        "title": "SABU",
+        "categories": "Makanan",
+        "price": "9999999999999999",
+        "image": "https://sumsel.bnn.go.id/konten/unggahan/2021/12/sabu.jpg"
+      }
+    ]
+  }

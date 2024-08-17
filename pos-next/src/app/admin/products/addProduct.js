@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 
 export default function AddProduct() {
 
-    const [image, setImage] = useState(null);
-    const [title, setTitle] = useState("");
-    const [categories, setCategories] = useState("");
+    const [image_url, setImage] = useState(null);
+    const [name, setName] = useState("");
     const [price, setPrice] = useState("");
+    const [description, setDescription] = useState("");
+    const [category_id, setCategories] = useState("");
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
@@ -33,17 +34,19 @@ export default function AddProduct() {
             },
             body:
                 JSON.stringify({
-                    title: title,
-                    categories: categories,
+                    name: name,
                     price: price,
-                    image: image,
+                    description: description,
+                    category_id: category_id,
+                    image_url: image_url,
                 })
         });
 
         setIsMutating(false);
 
-        setTitle("");
+        setName("");
         setPrice("");
+        setDescription("");
         router.refresh();
         setModal(false);
     }
@@ -89,7 +92,7 @@ export default function AddProduct() {
 
                         <input 
                             type="text"
-                            value={image}
+                            value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
                             placeholder="Enter Image URL"
@@ -102,29 +105,42 @@ export default function AddProduct() {
                         </label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="input w-full input-bordered"
                             placeholder="Enter Product name"
                         />
                     </div>
 
+                    <div className="form-control mt-3">
+                        <label className="label font-bold">
+                            Description
+                        </label>
+                        <input
+                            type="text"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="input w-full input-bordered"
+                            placeholder="Enter Description"
+                        />
+                    </div>
+
                     <div className="form-control mt-3 ">
                         <label className="label font-bold">
-                            Categories
+                            Category
                         </label>
                         <div className="flex items-center relative">
                         
                             <select 
-                                value={categories} 
+                                value={category_id} 
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
                                     <option value="">Pilih categories</option>
-                                    <option value="Makanan">Makanan</option>
-                                    <option value="Minuman">Minuman</option>
-                                    <option value="Snack">Snack</option>
-                                    <option value="Ice Cream">Ice Cream</option>
+                                    <option value="1">Makanan</option>
+                                    <option value="2">Minuman</option>
+                                    <option value="3">Snack</option>
+                                    <option value="4">Ice Cream</option>
                             </select>
 
                             <div className="pointer-events-none flex items-center absolute inset-y-0 right-0 pr-2 text-gray-700">
