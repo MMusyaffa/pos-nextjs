@@ -9,6 +9,7 @@ import { EmployeesModule } from './employees/employees.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { DatabasesModule } from './databases/databases.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { CategoriesModule } from './categories/categories.module.js';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { ConfigModule } from '@nestjs/config';
           password: process.env.DB_PASSWORD,
           database: process.env.DB_NAME,
         }
-    })
+    }),
+    CategoriesModule
   ],
   controllers: [AppController],
   providers: [AppService],
