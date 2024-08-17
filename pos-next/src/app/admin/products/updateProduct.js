@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 
 export default function UpdateProduct(product) {
 
-    const [image, setImage] = useState(product.image);
-    const [title, setTitle] = useState(product.title);
-    const [categories, setCategories] = useState(product.categories);
+    const [image_url, setImage] = useState(product.image_url);
+    const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
+    const [description, setDescription] = useState(product.description);
+    const [category_id, setCategories] = useState(product.category_id);
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
@@ -33,10 +34,11 @@ export default function UpdateProduct(product) {
             },
             body:
                 JSON.stringify({
-                    title: title,
-                    categories: categories,
+                    name: name,
                     price: price,
-                    image: image,
+                    description: description,
+                    category_id: category_id,
+                    image_url: image_url,
                 })
         });
 
@@ -66,7 +68,7 @@ export default function UpdateProduct(product) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Edit product {product.title}
+                    Edit product {product.name}
                 </h3>
 
                 <form onSubmit={handleUpdate}>
@@ -87,7 +89,7 @@ export default function UpdateProduct(product) {
 
                         <input 
                             type="text"
-                            value={image}
+                            value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
                             placeholder="Enter Image URL"
@@ -100,10 +102,23 @@ export default function UpdateProduct(product) {
                         </label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="input w-full input-bordered"
                             placeholder="Enter Product name"
+                        />
+                    </div>
+
+                    <div className="form-control">
+                        <label className="label font-bold">
+                            Product description
+                        </label>
+                        <input
+                            type="text"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="input w-full input-bordered"
+                            placeholder="Enter Product description"
                         />
                     </div>
 
@@ -114,15 +129,15 @@ export default function UpdateProduct(product) {
                         <div className="flex items-center relative">
                         
                             <select 
-                                value={categories} 
+                                value={category_id} 
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
                                     <option value="">Pilih categories</option>
-                                    <option value="Makanan">Makanan</option>
-                                    <option value="Minuman">Minuman</option>
-                                    <option value="Snack">Snack</option>
-                                    <option value="Ice Cream">Ice Cream</option>
+                                    <option value="1">Makanan</option>
+                                    <option value="2">Minuman</option>
+                                    <option value="3">Snack</option>
+                                    <option value="4">Ice Cream</option>
                             </select>
 
                             <div className="pointer-events-none flex items-center absolute inset-y-0 right-0 pr-2 text-gray-700">

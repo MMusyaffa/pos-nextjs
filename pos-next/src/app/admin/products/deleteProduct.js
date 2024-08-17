@@ -45,7 +45,7 @@ export default function DeleteProduct(product) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Delete this {product.title}?
+                    Delete this {product.name}?
                 </h3>
                 <div className="modal-action">
                     <button type="button" className="btn" onClick={handleChange}>
