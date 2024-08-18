@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, ParseFilePipeBuilder, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, HttpStatus, ParseFilePipeBuilder, Post, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UploadsService } from './uploads.service.js';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CustomFileTypeValidator } from './uploads.validator.js';
@@ -16,6 +16,7 @@ export class UploadsController {
   @Roles(['admin'])
   @UseInterceptors(FileInterceptor('image'))
   async create(
+    @Request() req: any,
     @Body()
     @UploadedFile(
       new ParseFilePipeBuilder()
@@ -27,6 +28,14 @@ export class UploadsController {
         })
     ) file: Express.Multer.File,
   ) {
-    return await this.uploadsService.uploadFile(file);
+    return this.uploadsService.uploadFile(req.employee.sub, file);
+  }
+
+  // === Clear unused files locally and in database ===
+  @Post('clear')
+  @UseGuards(AuthGuard)
+  @Roles(['admin'])
+  async clear() {
+    return this.uploadsService.clearUnusedFiles();
   }
 }

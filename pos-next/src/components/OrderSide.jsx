@@ -19,7 +19,7 @@ export default function OrderSide() {
                     </div>
                     <div className="flex rounded-full pr-2 bg-[#2d2d2d] items-center space-x-2 border border-stone-400">
                         <span className="p-2 h-8 w-8 bg-[#f05756] rounded-full text-center text-xs text-black">A</span>
-                        <span className="text-xs">Ange</span>
+                        <span className="text-xs">Employe Name</span>
                     </div>
                     </div>
                     <div className="flex flex-col space-y-8 flex-grow h-full">

@@ -5,11 +5,17 @@ import { useRouter } from "next/navigation";
 
 export default function UpdateCategories(categories) {
 
-    const [title, setTitle] = useState(categories.title);
+    const [name, setName] = useState(categories.name);
+    const [image_url, setImage] = useState(categories.image_url);
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
     const router = useRouter();
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    };
 
     async function handleUpdate(e)
     {
@@ -25,7 +31,7 @@ export default function UpdateCategories(categories) {
             },
             body:
                 JSON.stringify({
-                    title: title,
+                    name: name,
                 })
         });
 
@@ -55,10 +61,31 @@ export default function UpdateCategories(categories) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Edit product {categories.title}
+                    Edit product {categories.name}
                 </h3>
 
                 <form onSubmit={handleUpdate}>
+
+                    <div className="form-control">
+                        <label className="label font-bold">
+                            Categories Image
+                        </label>
+                        <input
+                            type="file"
+                            onChange={handleImageUpload}
+                            className="input w-full input-bordered"
+                        />
+                        <p className="mt-2">
+                            Or Input Image URL
+                        </p>
+                        <input 
+                            type="text"
+                            value={image_url}
+                            onChange={(e) => setImage(e.target.value)}
+                            className="input w-full input-bordered mt-2.5"
+                            placeholder="Enter Image URL"
+                        />
+                    </div>
 
                     <div className="form-control">
                         <label className="label font-bold">
@@ -66,8 +93,8 @@ export default function UpdateCategories(categories) {
                         </label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="input w-full input-bordered"
                             placeholder="Enter Categories name"
                         />

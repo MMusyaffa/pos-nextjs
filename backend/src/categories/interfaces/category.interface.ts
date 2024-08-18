@@ -1,9 +1,6 @@
-export interface Product {
+export interface Category {
   id: string;
   name: string;
-  price: number;
-  description: string;
-  category_id: string;
   image_url: string;
   is_archived: boolean;
   created_at: Date;
