@@ -9,4 +9,6 @@ export class UpdateProductDto {
   readonly category_id: string;
   
   readonly image_url: string;
+
+  readonly upload_id: string;
 }

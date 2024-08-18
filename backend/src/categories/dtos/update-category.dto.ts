@@ -6,4 +6,6 @@ export class UpdateCategoryDto {
   image_url: string;
 
   is_archived: boolean;
+
+  upload_id: string;
 }

@@ -51,6 +51,7 @@ export class EmployeesService {
     return this.databaseService.getKnex()
       .where({ is_active: true })
       .select('id', 'username', 'role')
+      .where({ is_active: true })
       .from(tableName);
   }
 

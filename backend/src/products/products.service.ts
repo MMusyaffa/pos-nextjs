@@ -2,6 +2,8 @@ import { BadRequestException, Injectable, InternalServerErrorException } from '@
 import { Product } from './interfaces/product.interface.js';
 import { CreateProductDto } from './dtos/create-product.dto.js';
 import { DatabasesService } from '../databases/databases.service.js';
+import { GetProductDto } from './dtos/get-product.dto.js';
+import { UpdateProductDto } from './dtos/update-product.dto.js';
 
 // todo: move to config
 const BASE_URL = 'http://localhost:3000/public/';
@@ -26,6 +28,7 @@ export class ProductsService {
       created_at: new Date(),
       updated_at: new Date(),
       last_updated_by: 'EMPLOYEE-1',
+      upload_id: null,
     },
   ]
 
@@ -33,7 +36,7 @@ export class ProductsService {
   async create(employee_id: string, createProductDto: CreateProductDto): Promise<any> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      this.products.push({
+      const product: Product = {
         id: `PRODUCT-${new Date().getTime()}`,
         name: createProductDto.name,
         price: createProductDto.price,
@@ -44,7 +47,10 @@ export class ProductsService {
         created_at: new Date(),
         updated_at: new Date(),
         last_updated_by: employee_id,
-      });
+        upload_id: createProductDto.upload_id || null,
+      };
+
+      this.products.push(product);
 
       return "Product created successfully";
     }
@@ -53,12 +59,38 @@ export class ProductsService {
     try {
       await this.databaseService.getKnex().transaction(async trx => {
 
-        const employee = await trx('employees').where('id', employee_id).first();
+        // check employee
+        const employee = await trx('employees')
+          .select('id')
+          .where('id', employee_id)
+          .first();
         if (!employee) {
           throw new BadRequestException('Employee not found');
         }
 
-        await trx('products').insert({
+        // check category
+        if (createProductDto.category_id){
+          const category = await trx('categories')
+            .select('id')
+            .where({id: createProductDto.category_id})
+            .first();
+          if (!category) {
+            throw new BadRequestException('Category not found');
+          }
+        }
+
+        // check upload file
+        if (createProductDto.upload_id){
+          const uploadFile = await trx('uploads')
+            .select('id', 'is_used')
+            .where({id: createProductDto.upload_id})
+            .first();
+          if (!uploadFile || uploadFile.is_used) {
+            throw new BadRequestException('Upload file not found');
+          }
+        }
+
+        const product: Product = {
           id: `PRODUCT-${new Date().getTime()}`,
           name: createProductDto.name,
           price: createProductDto.price,
@@ -69,7 +101,20 @@ export class ProductsService {
           created_at: new Date(),
           updated_at: new Date(),
           last_updated_by: employee_id,
-        });
+          upload_id: createProductDto.upload_id || null,
+        };
+
+        await trx('products').insert(product);
+
+        // update upload file
+        if (createProductDto.upload_id){
+          await trx('uploads').where({id: createProductDto.upload_id}).update({
+            is_used: true,
+            updated_at: new Date(),
+            last_updated_by: employee_id,
+          });
+        }
+        
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -94,22 +139,27 @@ export class ProductsService {
     const products = await this.databaseService.getKnex()
       .where('products.is_archived', false)
       .leftJoin('categories', 'products.category_id', 'categories.id')
-      .select('products.id', 'products.name', 'products.price', 'products.description', 'products.image_url', 'products.category_id', 'categories.name as category_name', 'categories.is_archived as category_is_archived')
+      .leftJoin('uploads', 'products.upload_id', 'uploads.id')
+      .select('products.id', 'products.name', 'products.price', 'products.description', 'products.image_url', 'products.category_id', 'products.upload_id','categories.name as category_name', 'categories.is_archived as category_is_archived', 'uploads.filename as upload_filename')
       .from('products');
     
-    return products.map(product => {
-      const {category_is_archived, ...p} = product;
-      p.category_id = category_is_archived ? null : p.category_id;
-      p.category_name = category_is_archived ? null : p.category_name;
-      p.image_url = p.image_url.includes('http') || product.image_url.includes('https') 
-        ? p.image_url
-        : p.image_url && `${BASE_URL}${product.image_url}`
-      return p;
+    const getProductDto: GetProductDto[] = products.map(product => {
+      return {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        image_url: product.upload_id ? `${BASE_URL}${product.upload_filename}` : product.image_url,
+        category_id: product.category_id ? (product.category_is_archived ? '' : product.category_id) : '',
+        category_name: product.category_id ? (product.category_is_archived ? '' : product.category_name) : '',
+      }
     });
+
+    return getProductDto;
   }
 
   // === Update Product ===
-  async update(id: string, employee_id: string, updateProductDto: CreateProductDto): Promise<any> {
+  async update(id: string, employee_id: string, updateProductDto: UpdateProductDto): Promise<any> {
     // using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const product = this.products.find(product => product.id === id);
@@ -134,14 +184,45 @@ export class ProductsService {
     // using database
     try {
       await this.databaseService.getKnex().transaction(async trx => {
-        const employee = await trx('employees').where('id', employee_id).first();
+
+        // check employee
+        const employee = await trx('employees')
+          .select('id')
+          .where({ id: employee_id})
+          .first();
         if (!employee) {
           throw new BadRequestException('Employee not found');
         }
 
-        const product = await trx('products').where('id', id).first();
-        if (!product) {
+        // check product
+        const product = await trx('products')
+          .select('id', 'name', 'price', 'description', 'category_id', 'image_url', 'is_archived', 'upload_id')
+          .where({id})
+          .first();
+        if (!product || product.is_archived) {
           throw new BadRequestException('Product not found');
+        }
+
+        // check category
+        if (updateProductDto.category_id){
+          const category = await trx('categories')
+            .select('id', 'is_archived')
+            .where({id: updateProductDto.category_id})
+            .first();
+          if (!category || category.is_archived) {
+            throw new BadRequestException('Category not found');
+          }
+        }
+
+        // check upload file
+        if (updateProductDto.upload_id){
+          const uploadFile = await trx('uploads')
+            .select('id', 'is_used')
+            .where({id: updateProductDto.upload_id})
+            .first();
+          if (!uploadFile || uploadFile.is_used) {
+            throw new BadRequestException('Upload file not found');
+          }
         }
 
         await trx('products').where('id', id).update({
@@ -153,6 +234,24 @@ export class ProductsService {
           updated_at: new Date(),
           last_updated_by: employee_id,
         });
+
+        // update upload file
+        if (updateProductDto.upload_id){
+
+          // update previous upload
+          await trx('uploads').where({id: product.upload_id}).update({
+            is_used: false,
+            updated_at: new Date(),
+            last_updated_by: employee_id,
+          });
+
+          // update new upload
+          await trx('uploads').where({id: updateProductDto.upload_id}).update({
+            is_used: true,
+            updated_at: new Date(),
+            last_updated_by: employee_id,
+          });
+        }
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -187,13 +286,13 @@ export class ProductsService {
     // using database
     try {
       await this.databaseService.getKnex().transaction(async trx => {
-        const employee = await trx('employees').where('id', employee_id).first();
+        const employee = await trx('employees').select('id').where('id', employee_id).first();
         if (!employee) {
           throw new BadRequestException('Employee not found');
         }
 
-        const product = await trx('products').where('id', id).first();
-        if (!product) {
+        const product = await trx('products').select('id', 'is_archived').where('id', id).first();
+        if (!product || product.is_archived) {
           throw new BadRequestException('Product not found');
         }
 

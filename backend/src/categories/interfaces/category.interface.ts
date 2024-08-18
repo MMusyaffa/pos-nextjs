@@ -6,4 +6,5 @@ export interface Category {
   created_at: Date;
   updated_at: Date;
   last_updated_by: string;
+  upload_id: string;
 }
