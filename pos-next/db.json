@@ -2,52 +2,59 @@
   "products": [
     {
       "id": "7aa2",
-      "title": "Es Teh",
-      "categories": "Ice Cream",
-      "price": 10000000000000000,
-      "image": "https://nilaigizi.com/assets/images/produk/produk_1578041377.jpg"
+      "name": "Es Teh",
+      "price": 100,
+      "description": "Teh pake es",
+      "category_id": "2",
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUbHBiGJ7rwVwS7S2wKafptNKSZekeWJH2Kw&s"
     },
     {
       "id": "7ac2",
-      "title": "Es Teler",
-      "categories": "Minuman",
-      "price": 450,
-      "image": "https://www.frisianflag.com/storage/app/media/uploaded-files/es-teler-nikmat.jpg"
+      "name": "Es Teler suka suka",
+      "price": 450999,
+      "description": "Es enak bikin teler enakkkkk",
+      "category_id": "2",
+      "image_url": "https://www.frisianflag.com/storage/app/media/uploaded-files/es-teler-nikmat.jpg"
     },
     {
       "id": "7azz2",
-      "title": "Cappuccino",
-      "categories": "Minuman",
+      "name": "Cappuccino",
       "price": 560,
-      "image": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/article/ARTICLE-AYOMAKAN_20231103140453.jpg"
+      "description": "Kopi ala Italia",
+      "category_id": "2",
+      "image_url": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/article/ARTICLE-AYOMAKAN_20231103140453.jpg"
     },
     {
       "id": "7b42",
-      "title": "Nasi Goreng",
-      "categories": "Makanan",
+      "name": "Nasi Goreng",
       "price": 123123123132,
-      "image": "https://riceinfo.com/wp-content/uploads/2022/09/nasi-goreng-recipe-800x800.jpg"
+      "description": "Nasi di goreng",
+      "category_id": "1",
+      "image_url": "https://riceinfo.com/wp-content/uploads/2022/09/nasi-goreng-recipe-800x800.jpg"
     },
     {
       "id": "f171",
-      "title": "Tempura Udon",
-      "categories": "Makanan",
+      "name": "Tempura Udon",
       "price": 35022,
-      "image": "https://recipes.net/wp-content/uploads/2022/07/tempura-udon-soup.jpg"
+      "description": "Udang versi jepang",
+      "category_id": "3",
+      "image_url": "https://recipes.net/wp-content/uploads/2022/07/tempura-udon-soup.jpg"
     },
     {
       "id": "6c79",
-      "title": "Chicken Fillet",
-      "categories": "Makanan",
+      "name": "Chicken Fillet",
       "price": "123132",
-      "image": "https://img.taste.com.au/zGyJqWcu/taste/2016/11/barbecue-marinated-chicken-fillets-3071-1.jpeg"
+      "description": "Daging ayam di goreng",
+      "category_id": "3",
+      "image_url": "https://img.taste.com.au/zGyJqWcu/taste/2016/11/barbecue-marinated-chicken-fillets-3071-1.jpeg"
     },
     {
       "id": "5d31",
-      "title": "SABU",
-      "categories": "Makanan",
+      "name": "SABU",
       "price": "9999999999999999",
-      "image": "https://sumsel.bnn.go.id/konten/unggahan/2021/12/sabu.jpg"
+      "description": "Barang haram",
+      "category_id": "5",
+      "image_url": "https://sumsel.bnn.go.id/konten/unggahan/2021/12/sabu.jpg"
     }
   ]
 }

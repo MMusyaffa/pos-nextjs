@@ -45,7 +45,7 @@ export default function DeleteCategories(categories) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Delete this {categories.title}?
+                    Delete this {categories.name}?
                 </h3>
 
                 <div className="modal-action">

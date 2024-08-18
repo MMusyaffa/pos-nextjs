@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 export default function AddCategories() {
 
-    const [image, setImage] = useState(null);
-    const [title, setTitle] = useState("");
+    const [image_url, setImage] = useState(null);
+    const [name, setName] = useState("");
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
@@ -31,14 +31,14 @@ export default function AddCategories() {
             },
             body:
                 JSON.stringify({
-                    title: title,
-                    image: image,
+                    name: name,
+                    image_url: image_url,
                 })
         });
 
         setIsMutating(false);
 
-        setTitle("");
+        setName("");
         router.refresh();
         setModal(false);
     }
@@ -82,7 +82,7 @@ export default function AddCategories() {
                         </p>
                         <input 
                             type="text"
-                            value={image}
+                            value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
                             placeholder="Enter Image URL"
@@ -95,8 +95,8 @@ export default function AddCategories() {
                         </label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="input w-full input-bordered"
                             placeholder="Enter Categories name"
                         />
