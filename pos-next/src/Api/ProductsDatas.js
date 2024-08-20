@@ -45,6 +45,28 @@ export const ProductsDatas = [
     },
     {
         'id': 5,
+        'name': 'Bismillah',
+        'description': 'Extra Sauce',
+        'price': 25000,
+        'devise': 'Rp',
+        'available': 12,
+        'image_url': '',
+        'category_id': 1,
+
+    },
+    {
+        'id': 6,
+        'name': 'Test test',
+        'description': 'Extra Sauce',
+        'price': 25000,
+        'devise': 'Rp',
+        'available': 12,
+        'image_url': '',
+        'category_id': 1,
+
+    },
+    {
+        'id': 7,
         'name': 'Noodles Indian',
         'description':'with Mustard',
         'price': 15000,
@@ -55,7 +77,7 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 6,
+        'id': 8,
         'name': 'Noodles Red',
         'description':'prawn noodles',
         'price': 18000,
@@ -66,7 +88,7 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 7,
+        'id': 9,
         'name': 'Strawberries Cold Drink',
         'description':'sweet',
         'price': 21000,
@@ -77,7 +99,7 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 8,
+        'id': 10,
         'name': 'Chocolate Drink',
         'description':'with sugar',
         'price': 24500,
@@ -88,7 +110,7 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 9,
+        'id': 11,
         'name': 'Dessert',
         'description':'without sugar',
         'price': 19000,
@@ -99,7 +121,7 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 10,
+        'id': 12,
         'name': 'Dessert',
         'description':'without sugar',
         'price': 25000,
@@ -110,24 +132,13 @@ export const ProductsDatas = [
         
     },
     {
-        'id': 11,
+        'id': 13,
         'name': 'Bismillah',
         'description': 'Extra Sauce',
         'price': 25000,
         'devise': 'Rp',
         'available': 12,
-        'image_url': '/products/br-1.jpeg',
-        'category_id': 1,
-
-    },
-    {
-        'id': 12,
-        'name': 'Bismillah',
-        'description': 'Extra Sauce',
-        'price': 25000,
-        'devise': 'Rp',
-        'available': 12,
-        'image_url': '/products/br-1.jpeg',
+        'image_url': '',
         'category_id': 5,
 
     }
