@@ -4,6 +4,7 @@ import { Category } from './interfaces/category.interface.js';
 import { DatabasesService } from '../databases/databases.service.js';
 import { UpdateCategoryDto } from './dtos/update-category.dto.js';
 import { Employee } from '../employees/employees.service.js';
+import { ResponseSuccess } from 'src/transform/transform.interceptor.js';
 
 // todo: move to config
 const BASE_URL = 'http://localhost:3000/public/';
@@ -29,7 +30,7 @@ export class CategoriesService {
   ];
 
   // === Create Category ===
-  async create(employee_id: string, createCategoryDto: CreateCategoryDto): Promise<string> {
+  async create(employee_id: string, createCategoryDto: CreateCategoryDto): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const category: Category = {
@@ -45,7 +46,9 @@ export class CategoriesService {
 
       this.categories.push(category);
 
-      return "Category created successfully";
+      return {
+        message: "Category created successfully",
+      }
     }
 
     // Using database
@@ -53,11 +56,19 @@ export class CategoriesService {
 
       await this.databaseService.getKnex().transaction(async trx => {
 
+        // Check if employee exists
         const employee: Employee = await trx('employees').select('id').where({ id: employee_id }).first();
         if (!employee) {
           throw new BadRequestException("Employee not found");
         }
 
+        // Check if category with the same name exists
+        const categoryExists = await trx('categories').select('id').where({ name: createCategoryDto.name }).first();
+        if (categoryExists) {
+          throw new BadRequestException("Category with the same name already exists");
+        }
+
+        // Check if upload exists
         if (createCategoryDto.upload_id) {
           const upload = await trx('uploads').select('id', 'is_used').where({ id: createCategoryDto.upload_id }).first();
           if (!upload || upload.is_used) {
@@ -85,9 +96,7 @@ export class CategoriesService {
             last_updated_by: employee_id,
           });
         }
-
       });
-
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -95,14 +104,19 @@ export class CategoriesService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Category created successfully";
+    return {
+      message: "Category created successfully",
+    };
   }
 
   // === Find All Categories ===
-  async findAll(): Promise<any> {
+  async findAll(): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      return this.categories;
+      return {
+        message: "Find all categories successfully",
+        data: this.categories,
+      };
     }
 
     // Using database
@@ -112,15 +126,18 @@ export class CategoriesService {
       .select('categories.id', 'categories.name', 'categories.image_url', 'categories.upload_id', 'uploads.filename as upload_filename')
       .from('categories');
 
-    return categories.map(category => ({
-      id: category.id,
-      name: category.name,
-      image_url: category.upload_id ? `${BASE_URL}${category.upload_filename}` : category.image_url || '',
-    }));
+    return {
+      message: "Find all categories successfully", 
+      data: categories.map(category => ({
+        id: category.id,
+        name: category.name,
+        image_url: category.upload_id ? `${BASE_URL}${category.upload_filename}` : category.image_url || '',
+      })),
+    };
   }
 
   // === Update Category ===
-  async update(id: string, employee_id: string, updateCategoryDto: UpdateCategoryDto): Promise<any> {
+  async update(id: string, employee_id: string, updateCategoryDto: UpdateCategoryDto): Promise<ResponseSuccess<any>> {
     // using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const category = this.categories.find(category => category.id === id);
@@ -137,7 +154,7 @@ export class CategoriesService {
         category.last_updated_by = employee_id;
       }
 
-      return "Category updated successfully";
+      return { message: "Category updated successfully",};
     }
 
     // using database
@@ -198,11 +215,13 @@ export class CategoriesService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Category updated successfully";
+    return {
+      message: "Category updated successfully",
+    };
   }
 
   // === Delete Category ===
-  async delete(id: string, employee_id: string): Promise<any> {
+  async delete(id: string, employee_id: string): Promise<ResponseSuccess<any>> {
     // using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const category = this.categories.find(category => category.id === id);
@@ -217,7 +236,9 @@ export class CategoriesService {
         category.last_updated_by = employee_id;
       }
 
-      return "Category deleted successfully";
+      return {
+        message: "Category deleted successfully",
+      };
     }
 
     // using database
@@ -255,6 +276,8 @@ export class CategoriesService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Category deleted successfully";
+    return {
+      message: "Category deleted successfully",
+    };
   }
 }

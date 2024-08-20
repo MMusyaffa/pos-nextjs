@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CategoriesService } from './categories.service.js';
 import { Roles } from '../auth/roles.decorator.js';
 import { AuthGuard } from '../auth/auth.guard.js';
@@ -29,6 +29,7 @@ export class CategoriesController {
 
   // === Update Category ===
   @Put(':id')
+  @HttpCode(201)
   @UseGuards(AuthGuard)
   @Roles(['admin'])
   update(@Param('id') id: string ,@Body() updateCategoryDto: UpdateCategoryDto, @Request() req) {
