@@ -22,6 +22,6 @@ export const CategoriesDatas = [
     {
         'id': 5,
         'name': 'Bukaan',
-        'image_url':'/categories/'
+        'image_url':''
     }
 ]
