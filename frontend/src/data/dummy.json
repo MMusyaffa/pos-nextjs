@@ -103,23 +103,28 @@
       }
     ],
     "categories": [
-      { "id": 1, 
+      { 
+        "id": 1, 
         "name": "Makanan", 
         "image_url": "https://img.icons8.com/fluency/48/meal.png"
       },
-      { "id": 2, 
+      { 
+        "id": 2, 
         "name": "Minuman", 
         "image_url": "https://img.icons8.com/fluency/48/green-tea.png"
       },
-      { "id": 3, 
+      { 
+        "id": 3, 
         "name": "Snack", 
         "image_url": "https://img.icons8.com/fluency/48/potato-chips.png"
       },
-      { "id": 4, 
+      { 
+        "id": 4, 
         "name": "Ice Cream", 
         "image_url": "https://img.icons8.com/fluency/48/ice-cream-bowl.png"
       },
-      { "id": 5, 
+      { 
+        "id": 5, 
         "name": "Takjil", 
         "image_url": ""
       }
