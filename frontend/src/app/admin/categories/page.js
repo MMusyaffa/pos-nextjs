@@ -5,17 +5,22 @@ import AddCategories from "./addCategories";
 import DeleteCategories from "./deleteCategories";
 import UpdateCategories from "./updateCategories";
 
+import dummyData from "../../../data/dummy.json";
+
 // export const metadata = {
 //   title: "Categories List",
 // };
 
+const usingDummyData = true;
+
 async function fetchCategories()
 {
-    const res = await fetch ("http://localhost:4000/categories", {
-        cache: 'no-store', //untuk mengambil data pada setiap request
-    });
-
-    return res.json();
+    if (usingDummyData) {
+        return dummyData.data.categories;
+    }
+    else {
+        return null;
+    }
 }
 
 export default function CategoriesList() {

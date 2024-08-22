@@ -1,11 +1,13 @@
-import { CategoriesDatas } from "../Api/CategoriesDatas";
 import CategoryButton from "./CategoryButton";
 
+import dummyData from "../data/dummy.json"
+
 export default function Categories() {
+    const categoriesData = dummyData.data.categories;
     return (
         <>
             <div className="flex justify-between w-full overflow-x-auto mt-4 p-2">
-                { CategoriesDatas.map((category) => <CategoryButton category={category} key={category.id} />) }
+                { categoriesData.map((category) => <CategoryButton category={category} key={category.id} />) }
             </div>
         </>
     );

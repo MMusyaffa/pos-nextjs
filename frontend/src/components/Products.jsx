@@ -1,18 +1,20 @@
 
 import { useContext, useEffect, useState } from "react";
-import { ProductsDatas } from "../Api/ProductsDatas";
 import { IdCurrentCategoryContext } from "../utils/contexts";
 import { sleep } from "../utils/helpers";
 import ProductItem from "./ProductItem";
 
+import dummyData from "../data/dummy.json"
+
 export default function Products() {
+    const productData = dummyData.data.products;
     const {idCurrentCategory} = useContext(IdCurrentCategoryContext)
     const [products, setProducts] = useState(null)
 
     useEffect(() => {
         async function filterProduct(idCurrentCategory) {
             setProducts(null)
-            let fiteredProducts = ProductsDatas.filter((product) => product.category_id === idCurrentCategory)
+            let fiteredProducts = productData.filter((product) => product.category_id === idCurrentCategory)
             await sleep(500)
             setProducts(fiteredProducts)
         }
