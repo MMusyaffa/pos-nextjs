@@ -3,6 +3,7 @@ import { PurchasesService } from './purchases.service.js';
 import { CreatePurchaseDto, CreatePurchaseDtos } from './dtos/create-purchase.dto.js';
 import { AuthGuard } from '../auth/auth.guard.js';
 import { Roles } from '../auth/roles.decorator.js';
+import { SavePurchaseDto } from './dtos/save-purchase.dto.js';
 
 @Controller('purchases')
 export class PurchasesController {
@@ -36,5 +37,12 @@ export class PurchasesController {
   @Roles(['cashier'])
   findByBuyerId(@Request() req) {
     return this.purchasesService.findByBuyerId(req.employee.sub, req.params.buyer_id);
+  }
+
+  @Post('save')
+  @UseGuards(AuthGuard)
+  @Roles(['cashier'])
+  save(@Body() savePurchaseDto: SavePurchaseDto, @Request() req) {
+    return this.purchasesService.save(req.employee.sub, savePurchaseDto);
   }
 }

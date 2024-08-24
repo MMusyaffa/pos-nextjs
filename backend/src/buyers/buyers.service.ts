@@ -21,7 +21,7 @@ export class BuyersService {
       if (buyer){
         return {
           message: 'Buyer found',
-          data: buyer,
+          data: {buyer_id: buyer.id},
         };
       }
     }

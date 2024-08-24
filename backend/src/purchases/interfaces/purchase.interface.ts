@@ -3,5 +3,7 @@ export interface Purchase {
   employee_id: string;
   product_id: string;
   quantity: number;
-  total: number;
+  subtotal_each: number;
+  created_at: Date;
+  status: string;
 }
