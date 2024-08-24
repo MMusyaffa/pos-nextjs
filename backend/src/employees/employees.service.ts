@@ -51,13 +51,15 @@ export class EmployeesService {
       };
     }
 
+    const data = await this.databaseService.getKnex()
+      .select('id', 'username', 'role')
+      .where({ is_active: true })
+      .from(tableName);
+
     // Using database
     return {
       message: 'Employees found',
-      data: this.databaseService.getKnex()
-        .select('id', 'username', 'role')
-        .where({ is_active: true })
-        .from(tableName),
+      data,
     };
   }
 

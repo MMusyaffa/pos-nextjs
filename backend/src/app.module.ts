@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { DatabasesModule } from './databases/databases.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { CategoriesModule } from './categories/categories.module.js';
+import { PaymentsModule } from './payments/payments.module.js';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { CategoriesModule } from './categories/categories.module.js';
           database: process.env.DB_NAME,
         }
     }),
-    CategoriesModule
+    CategoriesModule,
+    PaymentsModule
   ],
   controllers: [AppController],
   providers: [AppService],
