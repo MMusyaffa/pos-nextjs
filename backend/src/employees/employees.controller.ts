@@ -41,4 +41,11 @@ export class EmployeesController {
     }
     return this.employeesService.delete(id);
   }
+
+  @Get('current')
+  @UseGuards(AuthGuard)
+  @Roles(['admin', 'cashier'])
+  getCurrent(@Request() req) {
+    return this.employeesService.getCurrent(req.employee.sub);
+  }
 }

@@ -7,7 +7,7 @@ import { UpdateProductDto } from './dtos/update-product.dto.js';
 import { ResponseSuccess } from '../transform/transform.interceptor.js';
 
 // todo: move to config
-const BASE_URL = 'http://localhost:3000/public/';
+const BASE_URL = `${process.env.BASE_URL || "http://localhost:3000" }/public/`;
 
 @Injectable()
 export class ProductsService {
