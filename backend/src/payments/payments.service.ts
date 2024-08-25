@@ -182,11 +182,13 @@ export class PaymentsService {
           // update buyer
           await trx('buyers').update({
             status: 'finished',
+            created_at: new Date(),
           }).where({ id: finishPaymentDto.buyer_id });
 
           // update products
           await trx('purchases').update({
             status: 'finished',
+            created_at: new Date(),
           }).where({ buyer_id: finishPaymentDto.buyer_id, employee_id });
 
           // check if payment exists
@@ -207,6 +209,7 @@ export class PaymentsService {
           // update payment
           await trx('payments').update({
             status: 'finished',
+            created_at: new Date(),
           }).where({ id: finishPaymentDto.payment_id });
 
           return {
