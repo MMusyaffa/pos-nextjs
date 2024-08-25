@@ -5,9 +5,10 @@ import { DatabasesService } from '../databases/databases.service.js';
 import { UpdateCategoryDto } from './dtos/update-category.dto.js';
 import { Employee } from '../employees/employees.service.js';
 import { ResponseSuccess } from 'src/transform/transform.interceptor.js';
+import { existsSync } from 'fs';
 
 // todo: move to config
-const BASE_URL = 'http://localhost:3000/public/';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000/';
 
 @Injectable()
 export class CategoriesService {
@@ -131,7 +132,9 @@ export class CategoriesService {
       data: categories.map(category => ({
         id: category.id,
         name: category.name,
-        image_url: category.upload_id ? `${BASE_URL}${category.upload_filename}` : category.image_url || '',
+        image_url: category.upload_id 
+        ? (this.checkIfImageExists(category.upload_filename) && `${BASE_URL}${category.upload_filename}`) 
+        : category.image_url || '',
       })),
     };
   }
@@ -279,5 +282,10 @@ export class CategoriesService {
     return {
       message: "Category deleted successfully",
     };
+  }
+
+  // check if image exists in public folder
+  private checkIfImageExists(filename: string): boolean {
+    return existsSync(`public/${filename}`)
   }
 }

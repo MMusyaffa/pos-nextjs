@@ -88,6 +88,26 @@ export class EmployeesService {
   }
 
 
+  async getCurrent(employee_id: string): Promise<ResponseSuccess<any>> {
+    if (process.env.IS_USE_MOCK === 'true') {
+      return {
+        message: 'Employee found',
+        data: this.employeesMock.find(employee => employee.id === employee_id)
+      }
+    } else {
+      const employee: Employee = await this.databaseService.getKnex()
+        .select('id', 'username', 'role')
+        .from(tableName)
+        .where({ id: employee_id })
+        .first();
+
+      return {
+        message: 'Employee found',
+        data: employee,
+      };
+    }
+  }
+
   // === Create Employee ===
   async create(createEmployeeDto: CreateEmployeeDto): Promise<ResponseSuccess<any>> {
     // Create employee object
