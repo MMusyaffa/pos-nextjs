@@ -1,7 +1,9 @@
 export interface Purchase {
-  readonly buyer_id: string;
-  readonly cashier_id: string;
-  readonly product_id: string;
-  readonly quantity: number;
-  readonly total: number;
+  buyer_id: string;
+  employee_id: string;
+  product_id: string;
+  quantity: number;
+  subtotal_each: number;
+  created_at: Date;
+  status: string;
 }

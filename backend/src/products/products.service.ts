@@ -4,6 +4,7 @@ import { CreateProductDto } from './dtos/create-product.dto.js';
 import { DatabasesService } from '../databases/databases.service.js';
 import { GetProductDto } from './dtos/get-product.dto.js';
 import { UpdateProductDto } from './dtos/update-product.dto.js';
+import { ResponseSuccess } from '../transform/transform.interceptor.js';
 
 // todo: move to config
 const BASE_URL = 'http://localhost:3000/public/';
@@ -33,7 +34,7 @@ export class ProductsService {
   ]
 
   // === Create Product ===
-  async create(employee_id: string, createProductDto: CreateProductDto): Promise<any> {
+  async create(employee_id: string, createProductDto: CreateProductDto): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const product: Product = {
@@ -52,7 +53,9 @@ export class ProductsService {
 
       this.products.push(product);
 
-      return "Product created successfully";
+      return {
+        message: "Product created successfully",
+      };
     }
 
     // Using database
@@ -123,16 +126,19 @@ export class ProductsService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Product created successfully";
+    return {
+      message: "Product created successfully",
+    };
   }
 
   // === Find All Products ===
-  async findAll(): Promise<any> {
+  async findAll(): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      return this.products.map(product => {
-        return product.image_url.includes('http') || product.image_url.includes('https') ? product : { ...product, image_url: `${BASE_URL}${product.image_url}` }
-      });
+      return {
+        message: "Find all products successfully",
+        data: this.products,
+      }
     }
 
     // Using database
@@ -155,11 +161,14 @@ export class ProductsService {
       }
     });
 
-    return getProductDto;
+    return {
+      message: "Find all products successfully",
+      data: getProductDto,
+    };
   }
 
   // === Update Product ===
-  async update(id: string, employee_id: string, updateProductDto: UpdateProductDto): Promise<any> {
+  async update(id: string, employee_id: string, updateProductDto: UpdateProductDto): Promise<ResponseSuccess<any>> {
     // using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const product = this.products.find(product => product.id === id);
@@ -178,7 +187,9 @@ export class ProductsService {
         product.last_updated_by = employee_id;
       }
 
-      return "Product updated successfully";
+      return {
+        message: "Product updated successfully",
+      };
     }
 
     // using database
@@ -260,11 +271,13 @@ export class ProductsService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Product updated successfully";
+    return {
+      message: "Product updated successfully",
+    };
   }
 
   // === Delete Product ===
-  async delete(id: string, employee_id: string): Promise<any> {
+  async delete(id: string, employee_id: string): Promise<ResponseSuccess<any>> {
     // using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const productIndex = this.products.findIndex(product => product.id === id);
@@ -280,7 +293,9 @@ export class ProductsService {
         last_updated_by: employee_id,
       };
 
-      return "Product deleted successfully";
+      return {
+        message: "Product deleted successfully",
+      };
     }
 
     // using database
@@ -309,6 +324,8 @@ export class ProductsService {
       throw new InternalServerErrorException(error);
     }
 
-    return "Product deleted successfully";
+    return {
+      message: "Product deleted successfully",
+    };
   }
 }

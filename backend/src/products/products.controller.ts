@@ -1,6 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './products.service.js';
-import { Product } from './interfaces/product.interface.js';
 import { CreateProductDto } from './dtos/create-product.dto.js';
 import { AuthGuard } from '../auth/auth.guard.js';
 import { Roles } from '../auth/roles.decorator.js';
@@ -24,8 +23,8 @@ export class ProductsController {
   @Get()
   @UseGuards(AuthGuard)
   @Roles(['admin', 'cashier'])
-  async findAll(): Promise<Product[]> {
-    return this.productsService.findAll();  
+  async findAll() {
+    return this.productsService.findAll();
   }
 
   @Put(':id')

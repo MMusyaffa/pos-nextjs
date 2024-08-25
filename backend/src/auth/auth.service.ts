@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { SignUpDto } from './dtos/signup.dto.js';
 import { CreateEmployeeDto } from '../employees/dtos/create-employee.dto.js';
+import { ResponseSuccess } from 'src/transform/transform.interceptor.js';
 
 @Injectable()
 export class AuthService {
@@ -12,8 +13,9 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async signIn(inUsername: string, inPassword: string): Promise<{access_token: string}> {
-    const employee = await this.employeesService.findOne(inUsername);
+  async signIn(inUsername: string, inPassword: string): Promise<ResponseSuccess<{access_token: string}>> {
+    const response = await this.employeesService.findOne(inUsername);
+    const employee = response.data;
 
     if (!employee) {
       throw new UnauthorizedException("User not found");
@@ -29,13 +31,18 @@ export class AuthService {
     // instead of the user object
     const payload = { username: employee.username, sub: employee.id, role: employee.role };
 
+    const access_token = await this.jwtService.signAsync(payload);
+
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      message: 'Login success',
+      data: {
+        access_token
+      }
     };
   }
 
   // Signup
-  async signUp(signUpDto: SignUpDto): Promise<boolean> {
+  async signUp(signUpDto: SignUpDto): Promise<ResponseSuccess<any>> {
     const inEmployee = new CreateEmployeeDto();
     inEmployee.username = signUpDto.username;
     inEmployee.password = signUpDto.password;

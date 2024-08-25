@@ -4,6 +4,7 @@ import { hash, genSalt } from 'bcrypt';
 import { bcryptConstants } from '../auth/constants.js';
 import { DatabasesService } from '../databases/databases.service.js';
 import { UpdateEmployeeRoleDto } from './dtos/update-employee-role.dto.js';
+import { ResponseSuccess } from 'src/transform/transform.interceptor.js';
 
 export type Employee = {
   id: string;
@@ -41,39 +42,54 @@ export class EmployeesService {
 
   
   // === Find All Employees ===
-  async findAll(): Promise<any> {
+  async findAll(): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      return this.employeesMock;
+      return {
+        message: 'Employees found',
+        data: this.employeesMock,
+      };
     }
 
-    // Using database
-    return this.databaseService.getKnex()
-      .where({ is_active: true })
+    const data = await this.databaseService.getKnex()
       .select('id', 'username', 'role')
       .where({ is_active: true })
       .from(tableName);
+
+    // Using database
+    return {
+      message: 'Employees found',
+      data,
+    };
   }
 
 
   // === Find One Employee ===
-  async findOne(username: string): Promise<Employee | undefined> {
+  async findOne(username: string): Promise<ResponseSuccess<Employee>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      return this.employeesMock.find(employee => employee.username === username);
+      return {
+        message: 'Employee found',
+        data: this.employeesMock.find(employee => employee.username === username)
+      }
     }
+    
+    const employee: Employee = await this.databaseService.getKnex()
+      .select('id', 'username', 'password', 'role')
+      .from(tableName)
+      .where({ username })
+      .first()
 
     // Using database
-    return this.databaseService.getKnex()
-    .select('id', 'username', 'password', 'role')
-    .from(tableName)
-    .where({ username })
-    .first();
+    return {
+      message: 'Employee found',
+      data: employee,
+    };
   }
 
 
   // === Create Employee ===
-  async create(createEmployeeDto: CreateEmployeeDto): Promise<any> {
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<ResponseSuccess<any>> {
     // Create employee object
     const inEmployee = new CreateEmployeeDto();
     inEmployee.username = createEmployeeDto.username;
@@ -95,7 +111,10 @@ export class EmployeesService {
         is_active: true,
         ...inEmployee,
       });
-      return true;
+
+      return {
+        message: 'Employee created',
+      };
     }
   
     // Using database
@@ -122,12 +141,14 @@ export class EmployeesService {
       throw new InternalServerErrorException('Failed to create employee');
     }
   
-    return 'Employee created';
+    return {
+      message: 'Employee created',
+    };
   }
 
 
   // === Change Password ===
-  async changePassword(employee_id: string, newPassword: string): Promise<any> {
+  async changePassword(employee_id: string, newPassword: string): Promise<ResponseSuccess<any>> {
     // Create employee object
     const inEmployee = new CreateEmployeeDto();
     // hash password
@@ -147,7 +168,9 @@ export class EmployeesService {
         is_active: this.employeesMock[index].is_active,
         ...inEmployee,
       };
-      return true;
+      return {
+        message: 'Password changed',
+      };
     }
 
     // Using database
@@ -171,11 +194,13 @@ export class EmployeesService {
       throw new InternalServerErrorException('Failed to change password');
     }
 
-    return 'Password changed';
+    return {
+      message: 'Password changed',
+    };
   }
 
   // === Change Role ===
-  async changeRole(employee_id: string, updateEmployeeRoleDto: UpdateEmployeeRoleDto): Promise<any> {
+  async changeRole(employee_id: string, updateEmployeeRoleDto: UpdateEmployeeRoleDto): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
       const employee = await this.findOne(employee_id);
@@ -193,7 +218,9 @@ export class EmployeesService {
         is_active: this.employeesMock[index].is_active,
       };
 
-      return 'Role changed';
+      return {
+        message: 'Role changed',
+      };
     }
 
     // Using database
@@ -217,14 +244,17 @@ export class EmployeesService {
       throw new InternalServerErrorException('Failed to change role');
     }
 
-    return 'Role changed';
+    return {
+      message: 'Role changed',
+    };
   }
 
   // === Delete Employee ===
-  async delete(employee_id: string): Promise<any> {
+  async delete(employee_id: string): Promise<ResponseSuccess<any>> {
     // Using mock
     if (process.env.IS_USE_MOCK === 'true') {
-      const employee: Employee = await this.findOne(employee_id);
+      const response = await this.findOne(employee_id);
+      const employee: Employee = response.data;
       if (!employee) {
         throw new BadRequestException('Employee not found');
       }
@@ -243,7 +273,9 @@ export class EmployeesService {
         is_active: false,
       };
 
-      return 'Employee deleted';
+      return {
+        message: 'Employee deleted',
+      };
     }
 
     // Using database
@@ -271,7 +303,9 @@ export class EmployeesService {
       throw new InternalServerErrorException('Failed to delete employee');
     }
 
-    return 'Employee deleted';
+    return {
+      message: 'Employee deleted',
+    };
   }
 
   // Utils
