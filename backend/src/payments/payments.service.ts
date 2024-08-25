@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, InternalServerErrorException } from '@
 import { DatabasesService } from '../databases/databases.service.js';
 import { SavePaymentDto } from './dtos/save-payment.dto.js';
 import { ResponseSuccess } from '../transform/transform.interceptor.js';
+import { FinishPaymentDto } from './dtos/finish-payment.dto.js';
 
 @Injectable()
 export class PaymentsService {
@@ -25,6 +26,11 @@ export class PaymentsService {
           .from('payments')
           .where({ id: payment_id })
           .first();
+
+        if (!payment) {
+          // use temporary data
+          return this.getTemplatePayment();
+        }
         
         const service = 0.11;
 
@@ -43,6 +49,22 @@ export class PaymentsService {
       }
     }
       
+  }
+
+  async getTemplatePayment(): Promise<ResponseSuccess<any>> {
+    return {
+      message: 'Payment not found',
+      data: [{
+        subtotal: 0,
+        service: 0,
+        voucher: 0,
+        total: 0,
+        cash: 0,
+        change: 0,
+        payment_type: '',
+        status: 'waiting',
+      }],
+    };
   }
 
   // save
@@ -83,8 +105,14 @@ export class PaymentsService {
           const change = savePaymentDto.cash - total;
 
           // check if payment already exists
-          const payment = await trx('payments').select('id').where({ buyer_id: savePaymentDto.buyer_id, employee_id: employee_id }).first();
+          const payment = await trx('payments').select('id', 'status').where({ buyer_id: savePaymentDto.buyer_id, employee_id: employee_id }).first();
+
           if (payment) {
+            // check if payment is already finished
+            if (payment.status === 'finished'){
+              throw new BadRequestException('Payment already finished');
+            }
+            
             // update payment
             await trx('payments').update({
               subtotal,
@@ -134,4 +162,63 @@ export class PaymentsService {
   }
 
   // finish
+  async finish(employee_id: string, finishPaymentDto: FinishPaymentDto): Promise<ResponseSuccess<any>> {
+    if (process.env.IS_USE_MOCK === 'true') {
+      // using mock data
+      return {
+        message: 'Not implemented',
+      };
+    } else {
+      // using database data
+      try {
+        return await this.databaseService.getKnex().transaction(async trx => {
+
+          // check if buyer exists
+          const buyer = await trx('buyers').select('id').where({ id: finishPaymentDto.buyer_id }).first();
+          if (!buyer) {
+            throw new BadRequestException('Buyer not found');
+          }
+
+          // update buyer
+          await trx('buyers').update({
+            status: 'finished',
+          }).where({ id: finishPaymentDto.buyer_id });
+
+          // update products
+          await trx('purchases').update({
+            status: 'finished',
+          }).where({ buyer_id: finishPaymentDto.buyer_id, employee_id });
+
+          // check if payment exists
+          const payment = await trx('payments').select('id', 'change', 'status').where({ id: finishPaymentDto.payment_id}).first();
+          if (!payment) {
+            throw new BadRequestException('Payment not found');
+          }
+
+          // check if payment is already finished
+          if (payment.status === 'finished'){
+            throw new BadRequestException('Payment already finished');
+          }
+
+          if (payment.change < 0) {
+            throw new BadRequestException(`Cash is not enough ${payment.change}`);
+          }
+
+          // update payment
+          await trx('payments').update({
+            status: 'finished',
+          }).where({ id: finishPaymentDto.payment_id });
+
+          return {
+            message: 'Payment finished',
+          };
+        });
+      } catch (error) {
+        if (error instanceof BadRequestException) {
+          throw error;
+        }
+        throw new InternalServerErrorException("Failed to finish payment: " + error.message);
+      }
+    }
+  }
 }

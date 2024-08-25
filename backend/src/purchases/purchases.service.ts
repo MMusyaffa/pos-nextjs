@@ -124,12 +124,19 @@ export class PurchasesService {
           // check if purchase exists
           const purchase: {
             quantity: number;
-          } = await trx('purchases').select('quantity').where({
+            status: string;
+          } = await trx('purchases').select('quantity', 'status').where({
             product_id: savePurchaseDto.product_id,
             buyer_id: savePurchaseDto.buyer_id,
             employee_id,
           }).first();
+
           if (purchase) {
+
+            if (purchase.status === 'finished') {
+              throw new BadRequestException('Purchase already finished');
+            }
+
             // Update purchase
             const addQuantity = savePurchaseDto.quantity + purchase.quantity;
             if (addQuantity < 0) {
