@@ -1,0 +1,133 @@
+{
+  "data": {
+    "products": [
+      {
+        "id": 1, 
+        "name": "Chicken Pop Rice Bowl", 
+        "price": 35000,
+        "devise": "Rp",
+        "description": "",
+        "available": "10",
+        "category_id": 1,  
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV2FjYVLF-SUhXBjtuiOumLi-De6dfW3Z4vg&s"
+      },
+      {
+        "id": 2, 
+        "name": "Nasi Goreng Dhadhu", 
+        "price": 36000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",
+        "category_id": 1,  
+        "image_url": "https://www.blibli.com/friends-backend/wp-content/uploads/2023/04/B300026-Cover-resep-nasi-goreng-scaled.jpg"
+      },
+      {
+        "id": 3, 
+        "name": "Milkshake", 
+        "price": 30000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 2,  
+        "image_url": "https://bakingmischief.com/wp-content/uploads/2022/03/coffee-milkshake-square.jpg"
+      },
+      {
+        "id": 4, 
+        "name": "Thai Tea", 
+        "price": 26500, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 2,  
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyG3Ti8Vv2ra1_0jDYeEo7kE-XhEzMQqynCQ&s"
+      },
+      {
+        "id": 5, 
+        "name": "Waffle", 
+        "price": 32500, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 3,  
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Waffles_with_Strawberries.jpg/1200px-Waffles_with_Strawberries.jpg"
+      },
+      {
+        "id": 6, 
+        "name": "Tempe Dhadhu", 
+        "price": 23000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 3,  
+        "image_url": "https://www.masakapahariini.com/wp-content/uploads/2023/03/resep-tempe-mendoan-1.jpg"
+      },
+      {
+        "id": 7, 
+        "name": "Chocolate Gelato", 
+        "price": 20000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 4,  
+        "image_url": "https://www.daysoftheyear.com/wp-content/uploads/chocolate-ice-cream-day1-scaled.jpg"
+      },
+      {
+        "id": 8, 
+        "name": "Matcha Gelato", 
+        "price": 22000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 4,  
+        "image_url": "https://gourmetmami.com/wp-content/uploads/2021/02/matcha-ice-cream.jpg"
+      },
+      {
+        "id": 9, 
+        "name": "Klepon", 
+        "price": 15000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 5,  
+        "image_url": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/28/IMG_20230328_093325-3185700392.jpg"
+      },
+      {
+        "id": 10, 
+        "name": "Dadar Gulung", 
+        "price": 18000, 
+        "devise": "Rp",
+        "description": "",
+        "available": "10",        
+        "category_id": 5,  
+        "image_url": "https://cdn.idntimes.com/content-images/post/20220419/1-28bf8fdf8861afbbd00a0eefe1ff2dfe.jpeg"
+      }
+    ],
+    "categories": [
+      { 
+        "id": 1, 
+        "name": "Makanan", 
+        "image_url": "https://img.icons8.com/fluency/48/meal.png"
+      },
+      { 
+        "id": 2, 
+        "name": "Minuman", 
+        "image_url": "https://img.icons8.com/fluency/48/green-tea.png"
+      },
+      { 
+        "id": 3, 
+        "name": "Snack", 
+        "image_url": "https://img.icons8.com/fluency/48/potato-chips.png"
+      },
+      { 
+        "id": 4, 
+        "name": "Ice Cream", 
+        "image_url": "https://img.icons8.com/fluency/48/ice-cream-bowl.png"
+      },
+      { 
+        "id": 5, 
+        "name": "Takjil", 
+        "image_url": ""
+      }
+    ]
+  }
+}

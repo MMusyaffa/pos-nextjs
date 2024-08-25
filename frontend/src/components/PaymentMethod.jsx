@@ -11,7 +11,7 @@ export default function PaymentMethod() {
     return (
         <>
             <div className={`flex flex-col space-y-4 ${cart.length ? 'opacity-100 translate-y-0' :'opacity-0 translate-y-20'} transition duration-500 delay-200`}>
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col space-y-2 cursor-pointer">
                     <div className="text-stone-200 text-sm">Payment Method</div>
                     <div className="flex space-x-4 text-xs">
                         <PaymentMethodButton methodPayment={methodsPayment.cash}>
@@ -31,7 +31,7 @@ export default function PaymentMethod() {
                         </PaymentMethodButton>
                     </div>
                 </div>
-                <div onClick={() => setModalOpened(true)} className="bg-white hover:bg-[#f05756] hover:text-white transition duration-500 w-full rounded-full py-2 px-4 text-center text-black">
+                <div onClick={() => setModalOpened(true)} className="bg-white hover:bg-[#f05756] hover:text-white transition duration-500 w-full rounded-full py-2 px-4 text-center text-black cursor-pointer">
                     Place order
                 </div>
            </div>

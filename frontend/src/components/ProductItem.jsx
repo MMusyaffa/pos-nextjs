@@ -63,7 +63,7 @@ export default function ProductItem({productProps}) {
 
     return (
         <>
-            <div onMouseEnter={() => setShowOverlay(true)} onMouseLeave={() => setShowOverlay(false)} className="flex flex-col space-y-2 col-span-1 bg-[#2d2d2d] p-2 rounded-lg relative">
+            <a href="#" onMouseEnter={() => setShowOverlay(true)} onMouseLeave={() => setShowOverlay(false)} className="flex flex-col space-y-2 col-span-1 bg-[#2d2d2d] p-2 rounded-lg relative">
                 <div className="h-40 w-full bg-cover bg-center rounded-lg" style={{backgroundImage: `url(${productProps.image_url || "/products/foodIcon.svg"})`}} alt="food icon"></div>
                 <div className="flex items-center">
                     <span className="text-sm">{productProps.name} |</span>
@@ -82,7 +82,7 @@ export default function ProductItem({productProps}) {
                         <div onClick={() => handleIncreaseQtyProduct(productProps)} className="flex items-center justify-center h-10 w-10 rounded-xl border border-white bg-white text-stone-700 hover:opacity-60 transition">+</div>
                     </div>
                 </div>
-            </div>
+            </a>
         </>
     )
 }
