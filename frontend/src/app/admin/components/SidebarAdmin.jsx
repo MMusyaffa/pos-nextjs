@@ -42,11 +42,9 @@ export default function SideBarAdmin() {
                     <summary
                         href="#"
                             className={`flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 ${
-                                isActive("teams") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                            }`}
-                            onClick={() => setSelectedContent("teams")}
-                    >
-                        <span className="text-sm font-medium"> Teams </span>
+                                isActive("analytic") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                            }`}                    >
+                        <span className="text-sm font-medium"> Analytic </span>
                             <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -66,12 +64,25 @@ export default function SideBarAdmin() {
                     <ul className="mt-2 space-y-1 px-4">
                         <li>
                             <a
-                                href="#"
-                                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                            > Calendar
+                                href="#" onClick={() => setSelectedContent("histories")}
+                                className={`block rounded-lg px-4 py-2 text-sm font-medium ${
+                                    isActive("histories") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                }`}                            
+                                > History
                             </a>
                         </li>
                     </ul>
+
+                    <ul className="mt-2 space-y-1 px-4">
+                        <li>
+                            <a
+                                href="#"
+                                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                            > Sales
+                            </a>
+                        </li>
+                    </ul>
+
                 </details>
             </li>
 
