@@ -15,7 +15,7 @@
             {
                 "id": 1,
                 "date": 20240413,
-                "order_id": "ABB20240413",
+                "order_id": "ACD20240413",
                 "employee": "Ridwan",
                 "customer": "Mambang",
                 "product": "Milkshake",
@@ -37,7 +37,7 @@
             {
                 "id": 2,
                 "date": 20240413,
-                "order_id": "CIID20240413",
+                "order_id": "BBD20240413",
                 "employee": "Ridwan",
                 "customer": "Kamils",
                 "product": "Thai Tea",
@@ -48,7 +48,7 @@
             {
                 "id": 2,
                 "date": 20240413,
-                "order_id": "DDU20240413",
+                "order_id": "BBD20240413",
                 "employee": "Ridwan",
                 "customer": "Kamils",
                 "product": "Waffle",

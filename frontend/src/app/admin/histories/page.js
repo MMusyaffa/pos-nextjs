@@ -66,23 +66,27 @@ export default function HistoriesList()
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
+                            <th>Date</th>
+                            <th>Order ID</th>
+                            <th>Employee</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Qty</th>
                             <th>Description</th>
-                            <th>Categories</th>
                             <th>Price</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {getHistories.map((history, index) => 
                         (
-                            <tr key = {history.id}>
-                                <td>{index + 1}</td>
+                            <tr key = {history.order_id}>
                                 <td>{history.date}</td>
                                 <td>{history.order_id}</td>
                                 <td>{history.employee}</td>
+                                <td>{history.customer}</td>
+                                <td>{history.product}</td>
+                                <td>{history.qty}</td>
+                                <td>{history.description}</td>
                                 <td>{formatRupiah(history.price.toString(), 'Rp')}</td>
                                 <td className="flex">
                                     <div className="mr-1">

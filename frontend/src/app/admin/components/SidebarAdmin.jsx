@@ -19,21 +19,11 @@ export default function SideBarAdmin() {
 
             <li>
                 <a
-                    href="#" onClick={() => setSelectedContent("products")}
+                    href="#" onClick={() => setSelectedContent("dashboard")}
                     className={`block rounded-lg px-4 py-2 text-sm font-medium ${
-                        isActive("products") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        isActive("dashboard") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                         }`}
-                    > Menus
-                </a>
-            </li>
-            
-            <li>
-                <a
-                    href="#" onClick={() => setSelectedContent("categories")}
-                        className={`block rounded-lg px-4 py-2 text-sm font-medium ${
-                            isActive("categories") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                        }`}
-                    > Categories
+                    > Dashboard
                 </a>
             </li>
 
@@ -41,10 +31,8 @@ export default function SideBarAdmin() {
                 <details className="group [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         href="#"
-                            className={`flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 ${
-                                isActive("analytic") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                            }`}                    >
-                        <span className="text-sm font-medium"> Analytic </span>
+                        className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"                    >
+                        <span className="text-sm font-medium"> Analytics </span>
                             <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -76,9 +64,11 @@ export default function SideBarAdmin() {
                     <ul className="mt-2 space-y-1 px-4">
                         <li>
                             <a
-                                href="#"
-                                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                            > Sales
+                                href="#" onClick={() => setSelectedContent("sales")}
+                                className={`block rounded-lg px-4 py-2 text-sm font-medium ${
+                                    isActive("sales") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                }`}                            
+                                > Sales
                             </a>
                         </li>
                     </ul>
@@ -88,33 +78,39 @@ export default function SideBarAdmin() {
 
             <li>
                 <a
-                    href="#"
-                    onClick={() => setSelectedContent("history")}
+                    href="#" onClick={() => setSelectedContent("products")}
                     className={`block rounded-lg px-4 py-2 text-sm font-medium ${
-                        isActive("history") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                    }`}
-                > History
+                        isActive("products") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        }`}
+                    > Menus
+                </a>
+            </li>
+            
+            <li>
+                <a
+                    href="#" onClick={() => setSelectedContent("categories")}
+                        className={`block rounded-lg px-4 py-2 text-sm font-medium ${
+                            isActive("categories") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        }`}
+                    > Categories
                 </a>
             </li>
 
             <li>
                 <a
                     href="#"
-                    onClick={() => setSelectedContent("invoices")}
+                    onClick={() => setSelectedContent("users")}
                     className={`block rounded-lg px-4 py-2 text-sm font-medium ${
-                        isActive("invoices") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        isActive("users") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     }`}
-                > Invoices
+                > Users
                 </a>
             </li>
 
             <li>
                 <details className="group [&_summary::-webkit-details-marker]:hidden">
                     <summary
-                        className={`flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 ${
-                            isActive("account") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                        }`}
-                        onClick={() => setSelectedContent("account")}
+                        className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     >
                         <span className="text-sm font-medium"> Account </span>
                             <span className="shrink-0 transition duration-300 group-open:-rotate-180">
@@ -136,10 +132,11 @@ export default function SideBarAdmin() {
                     <ul className="mt-2 space-y-1 px-4">
                         <li>
                             <a
-                                href="#"
-                                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                            >
-                                Setting
+                                href="#" onClick={() => setSelectedContent("settings")}
+                                className={`block rounded-lg px-4 py-2 text-sm font-medium ${
+                                isActive("settings") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                 }`}                            
+                                > Setting
                             </a>
                         </li>
 

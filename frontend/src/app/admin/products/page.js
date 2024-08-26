@@ -11,6 +11,7 @@ import dummyData from "../../../data/dummy.json";
 //     title: "Product List",
 //   };
 
+const categories = dummyData.data.categories;
 const usingDummyData = true;
 
 async function fetchProducts()
@@ -70,31 +71,36 @@ export default function ProductsList()
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Description</th>
+                            <th>stock</th>
                             <th>Categories</th>
                             <th>Price</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {getProducts.map((product, index) => 
-                        (
-                            <tr key = {product.id}>
-                                <td>{index + 1}</td>
-                                <td>
-                                    <img src={product.image_url} style={{ maxWidth: '90px' }}/>
-                                </td>
-                                <td>{product.name}</td>
-                                <td>{product.description}</td>
-                                <td>{product.category_id}</td>
-                                <td>{formatRupiah(product.price.toString(), 'Rp')}</td>
-                                <td className="flex">
-                                    <div className="mr-1">
-                                        <UpdateProduct {...product}/>
-                                    </div>
-                                        <DeleteProduct {...product}/>
-                                </td>
-                            </tr>
-                        ))}
+                        {getProducts.map((product, index) => {
+                            const categoryName = categories.find(category => category.id === product.category_id)?.name;
+
+                            return (
+                                <tr key = {product.id}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        <img src={product.image_url} style={{ maxWidth: '90px' }}/>
+                                    </td>
+                                    <td>{product.name}</td>
+                                    <td>{product.description}</td>
+                                    <td>{product.available}</td>
+                                    <td>{categoryName}</td>
+                                    <td>{formatRupiah(product.price.toString(), 'Rp')}</td>
+                                    <td className="flex">
+                                        <div className="mr-1">
+                                            <UpdateProduct {...product}/>
+                                        </div>
+                                            <DeleteProduct {...product}/>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

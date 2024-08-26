@@ -5,6 +5,7 @@ import SideBarAdmin from "./components/SidebarAdmin";
 import ProductsList from "./products/page";
 import CategoriesList from "./categories/page";
 import HistoriesList from "./histories/page";
+import UsersList from "./users/page";
 import { AdminSidebarContext } from "@/utils/contexts";
 
 export default function Admin() {
@@ -19,6 +20,7 @@ export default function Admin() {
             { selectedContent === "products" && <ProductsList />}
             { selectedContent === "categories" && <CategoriesList />}
             { selectedContent === "histories" && <HistoriesList />}
+            { selectedContent === "users" && <UsersList />}
         </div>
       </div>
     </AdminSidebarContext.Provider>

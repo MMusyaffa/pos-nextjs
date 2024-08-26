@@ -9,6 +9,7 @@ export default function AddProduct() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const [available, setAvailable] = useState("");
     const [category_id, setCategories] = useState("");
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
@@ -125,6 +126,20 @@ export default function AddProduct() {
                         />
                     </div>
 
+                    <div className="form-control mt-3">
+                        <label className="label font-bold">
+                            Stock
+                        </label>
+                        <input
+                            type="number"
+                            value={available}
+                            onChange={(e) => setAvailable(e.target.value)}
+                            min="0"
+                            className="input w-full input-bordered"
+                            placeholder="Enter Stock Available"
+                        />
+                    </div>
+
                     <div className="form-control mt-3 ">
                         <label className="label font-bold">
                             Category
@@ -136,7 +151,7 @@ export default function AddProduct() {
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
-                                    <option value="">Pilih categories</option>
+                                    <option value="">Select Category</option>
                                     <option value="1">Makanan</option>
                                     <option value="2">Minuman</option>
                                     <option value="3">Snack</option>
@@ -167,6 +182,7 @@ export default function AddProduct() {
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
+                            min="0"
                             className="input w-full input-bordered"
                             placeholder="Enter Price"
                         />

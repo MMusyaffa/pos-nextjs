@@ -9,6 +9,7 @@ export default function UpdateProduct(product) {
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
     const [description, setDescription] = useState(product.description);
+    const [available, setAvailable] = useState(product.available);
     const [category_id, setCategories] = useState(product.category_id);
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
@@ -37,6 +38,7 @@ export default function UpdateProduct(product) {
                     name: name,
                     price: price,
                     description: description,
+                    available: available,
                     category_id: category_id,
                     image_url: image_url,
                 })
@@ -122,6 +124,19 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
+                    <div className="form-control">
+                        <label className="label font-bold">
+                            Product available
+                        </label>
+                        <input
+                            type="number"
+                            value={available}
+                            onChange={(e) => setAvailable(e.target.value)}
+                            className="input w-full input-bordered"
+                            placeholder="Enter Product description"
+                        />
+                    </div>
+
                     <div className="form-control mt-3 ">
                         <label className="label font-bold">
                             Categories
@@ -133,7 +148,7 @@ export default function UpdateProduct(product) {
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
-                                    <option value="">Pilih categories</option>
+                                    <option value="">Select Category</option>
                                     <option value="1">Makanan</option>
                                     <option value="2">Minuman</option>
                                     <option value="3">Snack</option>
@@ -164,6 +179,7 @@ export default function UpdateProduct(product) {
                             type="text"
                             value={price}
                             onChange={(e) => setPrice(Number(e.target.value))}
+                            min="0"
                             className="input w-full input-bordered"
                             placeholder="Enter Price"
                         />
