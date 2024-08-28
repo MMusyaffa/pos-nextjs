@@ -17,15 +17,37 @@ export default function AddProduct() {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, setName, setPrice, setDescription, 
+                                setAvailable, setCategories, router, setModal)
+    {
+        setIsMutating(false);
+        setName("");
+        setPrice("");
+        setDescription("");
+        setAvailable("");
+        setCategories("");
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
     const addProductForm = (e) => {
-        addProduct(e, name, price, description, available, category_id, 
-            image_url, setIsMutating, setName, setPrice, 
-            setDescription, setAvailable, setCategories, router, setModal);
+        handleBeforeSubmit(e, setIsMutating);
+
+        addProduct(name, price, description, available, category_id, image_url);
+
+        handleAfterSubmit(setIsMutating, setName, setPrice, setDescription, 
+            setAvailable, setCategories, router, setModal);
     }
 
     function handleChange()

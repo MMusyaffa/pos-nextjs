@@ -13,13 +13,31 @@ export default function AddCategories() {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, setName, router, setModal) 
+    {
+        setIsMutating(false);
+        setName("");
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
     const addCategoryForm = (e) => {
-        addCategory(e, name, image_url, setIsMutating, setName, router, setModal);
+        handleBeforeSubmit(e, setIsMutating);
+
+        addCategory(name, image_url);
+
+        handleAfterSubmit(setIsMutating, setName, router, setModal);
     }
 
     function handleChange()

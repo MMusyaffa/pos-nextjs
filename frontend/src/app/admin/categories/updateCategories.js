@@ -13,13 +13,30 @@ export default function UpdateCategories(categories) {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, router, setModal)
+    {
+        setIsMutating(false);
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
     const handleSubmit = (e) => {
-        updateCategory(e, name, setIsMutating, router, setModal);
+        handleBeforeSubmit(e, setIsMutating);
+
+        updateCategory(name, image_url);
+
+        handleAfterSubmit(setIsMutating, setName, router, setModal);
     };
 
     function handleChange()

@@ -12,11 +12,8 @@ export async function getCategory()
     }
 }
 
-export async function addCategory(e, name, image_url, setIsMutating, setName, router, setModal) {
-    e.preventDefault();
-
-    setIsMutating(true);
-
+export async function addCategory(name, image_url)
+{
     await fetch("http://localhost:4000/categories", {
         method: 'POST',
         headers: {
@@ -27,20 +24,10 @@ export async function addCategory(e, name, image_url, setIsMutating, setName, ro
             image_url: image_url,
         })
     });
-
-    setIsMutating(false);
-
-    setName("");
-    router.refresh();
-    setModal(false);
 }
 
-export async function updateCategory(e, name, image_url, setIsMutating, router, setModal)
+export async function updateCategory(name, image_url)
 {
-    e.preventDefault();
-
-    setIsMutating(true);
-
     await fetch(`http://localhost:4000/categories/${categories.id}`,
     {
         method: 'PATCH',
@@ -53,29 +40,12 @@ export async function updateCategory(e, name, image_url, setIsMutating, router, 
                 image_url: image_url,
             })
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
 }
 
-export async function deleteCategory(categoriesId, setIsMutating, router, setModal)
+export async function deleteCategory(categoriesId)
 {
-    setIsMutating(true);
-
     await fetch (`http://localhost:4000/categories/${categoriesId}`,
     {
         method: 'DELETE',
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
-}
-
-function handleChange()
-{
-    setModal(!modal);
 }

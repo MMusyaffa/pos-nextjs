@@ -14,14 +14,8 @@ export async function getProduct()
     }
 }
 
-export async function addProduct(e, name, price, description, available, category_id, 
-                                image_url, setIsMutating, setName, setPrice, 
-                                setDescription, setAvailable, setCategories, router, setModal)
+export async function addProduct(name, price, description, available, category_id, image_url)
 {
-    e.preventDefault();
-
-    setIsMutating(true);
-
     await fetch ("http://localhost:5000/data",
     {
         method: 'POST',
@@ -38,25 +32,10 @@ export async function addProduct(e, name, price, description, available, categor
                 image_url: image_url,
             })
     });
-
-    setIsMutating(false);
-
-    setName("");
-    setPrice("");
-    setDescription("");
-    setAvailable("");
-    setCategories("");
-    router.refresh();
-    setModal(false);
 }
 
-export async function updateProduct(e, name, price, description, available, category_id, 
-                                    image_url, setIsMutating, router, setModal)
+export async function updateProduct(name, price, description, available, category_id, image_url)
 {
-    e.preventDefault();
-
-    setIsMutating(true);
-
     await fetch(`http://localhost:5000/data/${product.id}`,
     {
         method: 'PATCH',
@@ -73,24 +52,12 @@ export async function updateProduct(e, name, price, description, available, cate
                 image_url: image_url,
             })
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
 }
 
 export async function deleteProduct(productId, setIsMutating, router, setModal)
 {
-    setIsMutating(true);
-
     await fetch (`http://localhost:5000/data/${productId}`,
     {
         method: 'DELETE',
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
 }

@@ -11,10 +11,22 @@ export default function DeleteUser(user) {
 
     const router = useRouter();
 
+    function handleBeforeDelete(setIsMutating) 
+    {
+        setIsMutating(true);
+    }
+
+    function handleAfterDelete(setIsMutating, router, setModal) 
+    {
+        setIsMutating(false);
+        router.refresh();
+        setModal(false);
+    }
+
     function handleChange()
-{
-    setModal(!modal);
-}
+    {
+        setModal(!modal);
+    }
 
   return (
    <div>
@@ -39,7 +51,12 @@ export default function DeleteUser(user) {
                     </button>
                     {!isMutating ? (
                         <button
-                        type="button" onClick={() => deleteUser(userId, setIsMutating, router, setModal)}
+                        type="button"
+                        onClick={() => {
+                            handleBeforeDelete(setIsMutating);
+                            deleteUser(userId).finally
+                            (handleAfterDelete(setIsMutating, router, setModal))
+                        }}
                         className="btn btn-primary">
                         Delete
                       </button>

@@ -14,14 +14,8 @@ export async function getUser()
     }
 }
 
-export async function addUser(e, username, password, name, role, phone_number, 
-                            address, is_active, setIsMutating, setUsername, setPassword,
-                            setName, setRole, setPhone_number, setAddress, setStatus, router, setModal)
+export async function addUser(username, password, name, role, phone_number, address, is_active)
 {
-    e.preventDefault();
-
-    setIsMutating(true);
-
     await fetch ("http://localhost:4000/data",
     {
         method: 'POST',
@@ -39,28 +33,10 @@ export async function addUser(e, username, password, name, role, phone_number,
                 is_active: is_active,
             })
     });
-
-    setIsMutating(false);
-
-    setUsername("");
-    setPassword("");
-    setName("");
-    setRole("");
-    setPhone_number("");
-    setAddress("");
-    setStatus("");
-
-    router.refresh();
-    setModal(false);
 }
 
-export async function updateUser(e, username, password, name, role, phone_number, 
-                                address, is_active, setIsMutating, router, setModal)
+export async function updateUser(username, password, name, role, phone_number, address, is_active)
 {
-    e.preventDefault();
-
-    setIsMutating(true);
-
     await fetch(`http://localhost:4000/data/${account.id}`,
     {
         method: 'PATCH',
@@ -78,25 +54,13 @@ export async function updateUser(e, username, password, name, role, phone_number
                 is_active: is_active,
             })
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
 }
 
 export async function deleteUser(userId, setIsMutating, router, setModal)
 {
-    setIsMutating(true);
-
     await fetch (`http://localhost:4000/data/${userId}`,
     {
         method: 'DELETE',
     });
-
-    setIsMutating(false);
-
-    router.refresh();
-    setModal(false);
 }
     

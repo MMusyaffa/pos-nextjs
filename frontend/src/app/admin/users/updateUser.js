@@ -20,13 +20,29 @@ export default function UpdateUser(user) {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, router, setModal) 
+    {
+        setIsMutating(false);
+        router.refresh();
+        setModal(false);
+    }
+
     const togglePassword = () => {
         setShowPassword(!showPassword);
     }
 
     const handleSubmit = (e) => {
-        updateUser(e, username, password, name, role, phone_number, 
-            address, is_active, setIsMutating, router, setModal);
+        handleBeforeSubmit(e, setIsMutating);
+
+        updateUser(username, password, name, role, phone_number, address, is_active);
+
+        handleAfterSubmit(setIsMutating, router, setModal);
     }
 
     function handleChange()

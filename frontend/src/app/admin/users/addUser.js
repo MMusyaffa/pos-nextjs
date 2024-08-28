@@ -24,10 +24,35 @@ export default function AddUser() {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, setUsername, setPassword,
+                                setName, setRole, setPhone_number, 
+                                setAddress, setStatus, router, setModal) 
+    {
+        setIsMutating(false);
+        setUsername("");
+        setPassword("");
+        setName("");
+        setRole("");
+        setPhone_number("");
+        setAddress("");
+        setStatus("");
+        router.refresh();
+        setModal(false);
+    }
+
     const addUserForm = (e) => {
-        addUser(e, username, password, name, role, phone_number, 
-            address, is_active, setIsMutating, setUsername, setPassword,
-            setName, setRole, setPhone_number, setAddress, setStatus, router, setModal);
+        handleBeforeSubmit(e, setIsMutating);
+
+        addUser(username, password, name, role, phone_number, address, is_active);
+
+        handleAfterSubmit(setIsMutating, setUsername, setPassword, setName, setRole, setPhone_number, 
+                        setAddress, setStatus, router, setModal) 
     }
 
     function handleChange()
