@@ -68,7 +68,7 @@ export default function AddProduct() {
                         </p>
 
                         <input 
-                            type="text"
+                            type="url"
                             value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
