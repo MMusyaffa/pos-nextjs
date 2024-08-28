@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteProduct } from "@/api/products";
 
 export default function DeleteProduct(product) {
 
@@ -9,21 +10,6 @@ export default function DeleteProduct(product) {
     const [isMutating, setIsMutating] = useState(false);
 
     const router = useRouter();
-
-    async function handleDelete(productId)
-    {
-        setIsMutating(true);
-
-        await fetch (`http://localhost:5000/products/${productId}`,
-        {
-            method: 'DELETE',
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
-    }
 
     function handleChange()
     {
@@ -53,7 +39,8 @@ export default function DeleteProduct(product) {
                     </button>
                     {!isMutating ? (
                         <button
-                        type="button" onClick={() => handleDelete(product.id)} className="btn btn-primary">
+                        type="button" onClick={() => deleteProduct(productId, setIsMutating, router, setModal)}
+                        className="btn btn-primary">
                         Delete
                       </button>
                     ) : (

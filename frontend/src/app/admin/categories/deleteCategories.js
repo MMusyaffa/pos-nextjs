@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteCategory } from "@/api/categories";
 
 export default function DeleteCategories(categories) {
 
@@ -9,21 +10,6 @@ export default function DeleteCategories(categories) {
     const [isMutating, setIsMutating] = useState(false);
 
     const router = useRouter();
-
-    async function handleDelete(categoriesId)
-    {
-        setIsMutating(true);
-
-        await fetch (`http://localhost:4000/categories/${categoriesId}`,
-        {
-            method: 'DELETE',
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
-    }
 
     function handleChange()
     {
@@ -54,7 +40,8 @@ export default function DeleteCategories(categories) {
                     </button>
                     {!isMutating ? (
                         <button
-                        type="button" onClick={() => handleDelete(categories.id)} className="btn btn-primary">
+                        type="button" onClick={() => deleteCategory(categories.id, setIsMutating, router, setModal)} 
+                        className="btn btn-primary">
                         Delete
                       </button>
                     ) : (

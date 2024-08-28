@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateProduct } from "@/api/products";
 
 export default function UpdateProduct(product) {
 
@@ -21,33 +22,9 @@ export default function UpdateProduct(product) {
         setImage(file);
     };
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch(`http://localhost:5000/products/${product.id}`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                    price: price,
-                    description: description,
-                    available: available,
-                    category_id: category_id,
-                    image_url: image_url,
-                })
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
+    const handleSubmit = (e) => {
+        updateProduct(e, name, price, description, available, category_id, 
+            image_url, setIsMutating, router, setModal);
     }
 
     function handleChange()
@@ -73,9 +50,9 @@ export default function UpdateProduct(product) {
                     Edit product {product.name}
                 </h3>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product Image
                         </label>
@@ -98,7 +75,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product name
                         </label>
@@ -111,7 +88,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product description
                         </label>
@@ -124,7 +101,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product available
                         </label>
@@ -137,7 +114,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control mt-3 ">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories
                         </label>
@@ -171,7 +148,7 @@ export default function UpdateProduct(product) {
                         </div>
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Price
                         </label>

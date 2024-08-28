@@ -1,35 +1,22 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { getUser } from "@/api/user";
 import AddUser from "./addUser";
 import UpdateUser from "./updateUser";
 import DeleteUser from "./deleteUser";
-
-import dummyUsers from "../../../data/dummyUser.json";
 
 // export const metadata = {
 //     title: "Product List",
 //   };
 
-const usingDummyData = true;
-
-async function fetchUsers()
-{
-    if (usingDummyData) {
-        return dummyUsers.account;
-    }
-    else {
-        return null;
-    }
-}
-
 export default function UsersList() 
 {
-    const [getUser, setGetUser] = useState([]);
+    const [getUsers, setGetUsers] = useState([]);
 
     useEffect(()=> {
-        fetchUsers()
-            .then( function (tit) {setGetUser(tit)
+        getUser()
+            .then( function (tit) {setGetUsers(tit)
             })
 
     }, []);
@@ -58,7 +45,7 @@ export default function UsersList()
                         </tr>
                     </thead>
                     <tbody>
-                        {getUser.map((user, index) => 
+                        {getUsers.map((user, index) => 
                         (
                             <tr key = {user.id}>
                                 <td>{index + 1}</td>

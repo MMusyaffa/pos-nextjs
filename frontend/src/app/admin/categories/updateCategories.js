@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateCategory } from "@/api/categories";
 
 export default function UpdateCategories(categories) {
 
@@ -17,29 +18,9 @@ export default function UpdateCategories(categories) {
         setImage(file);
     };
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch(`http://localhost:4000/categories/${categories.id}`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                })
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
-    }
+    const handleSubmit = (e) => {
+        updateCategory(e, name, setIsMutating, router, setModal);
+    };
 
     function handleChange()
     {
@@ -61,12 +42,12 @@ export default function UpdateCategories(categories) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Edit product {categories.name}
+                    Edit Category {categories.name}
                 </h3>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories Image
                         </label>
@@ -87,7 +68,7 @@ export default function UpdateCategories(categories) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories name
                         </label>

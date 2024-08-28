@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { getProduct } from "@/api/products";
 import AddProduct from "./addProduct";
 import DeleteProduct from "./deleteProduct";
 import UpdateProduct from "./updateProduct";
@@ -12,17 +13,6 @@ import dummyData from "../../../data/dummy.json";
 //   };
 
 const categories = dummyData.data.categories;
-const usingDummyData = true;
-
-async function fetchProducts()
-{
-    if (usingDummyData) {
-        return dummyData.data.products;
-    }
-    else {
-        return null;
-    }
-}
 
 const formatRupiah = (angka, prefix) => {
 
@@ -47,7 +37,7 @@ export default function ProductsList()
     const [getProducts, setGetProducts] = useState([]);
 
     useEffect(()=> {
-        fetchProducts()
+        getProduct()
             .then( function (tit) {setGetProducts(tit)
             })
 

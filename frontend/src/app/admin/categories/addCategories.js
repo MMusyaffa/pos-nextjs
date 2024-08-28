@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { addCategory } from "@/api/categories";
 
 export default function AddCategories() {
 
@@ -17,30 +18,8 @@ export default function AddCategories() {
         setImage(file);
     };
 
-    async function handleSubmit(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch ("http://localhost:4000/categories",
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                    image_url: image_url,
-                })
-        });
-
-        setIsMutating(false);
-
-        setName("");
-        router.refresh();
-        setModal(false);
+    const addCategoryForm = (e) => {
+        addCategory(e, name, image_url, setIsMutating, setName, router, setModal);
     }
 
     function handleChange()
@@ -66,9 +45,9 @@ export default function AddCategories() {
                     Add New categories
                 </h3>
                 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={addCategoryForm}>
                     
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories Image
                         </label>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { addProduct } from "@/api/products";
 
 export default function AddProduct() {
 
@@ -21,35 +22,10 @@ export default function AddProduct() {
         setImage(file);
     };
 
-    async function handleSubmit(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch ("http://localhost:5000/products",
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                    price: price,
-                    description: description,
-                    category_id: category_id,
-                    image_url: image_url,
-                })
-        });
-
-        setIsMutating(false);
-
-        setName("");
-        setPrice("");
-        setDescription("");
-        router.refresh();
-        setModal(false);
+    const addProductForm = (e) => {
+        addProduct(e, name, price, description, available, category_id, 
+            image_url, setIsMutating, setName, setPrice, 
+            setDescription, setAvailable, setCategories, router, setModal);
     }
 
     function handleChange()
@@ -75,9 +51,9 @@ export default function AddProduct() {
                     Add New product
                 </h3>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={addProductForm}>
                     
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product Image
                         </label>

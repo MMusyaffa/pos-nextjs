@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteUser } from "@/api/user";
 
 export default function DeleteUser(user) {
 
@@ -10,25 +11,10 @@ export default function DeleteUser(user) {
 
     const router = useRouter();
 
-    async function handleDelete(userId)
-    {
-        setIsMutating(true);
-
-        await fetch (`http://localhost:5000/products/${productId}`,
-        {
-            method: 'DELETE',
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
-    }
-
     function handleChange()
-    {
-        setModal(!modal);
-    }
+{
+    setModal(!modal);
+}
 
   return (
    <div>
@@ -53,7 +39,8 @@ export default function DeleteUser(user) {
                     </button>
                     {!isMutating ? (
                         <button
-                        type="button" onClick={() => handleDelete(product.id)} className="btn btn-primary">
+                        type="button" onClick={() => deleteUser(userId, setIsMutating, router, setModal)}
+                        className="btn btn-primary">
                         Delete
                       </button>
                     ) : (

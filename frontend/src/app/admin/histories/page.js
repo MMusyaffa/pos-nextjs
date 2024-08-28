@@ -72,7 +72,7 @@ export default function HistoriesList()
                             <th>Customer</th>
                             <th>Product</th>
                             <th>Qty</th>
-                            <th>Description</th>
+                            <th>Notes</th>
                             <th>Price</th>
                         </tr>
                     </thead>

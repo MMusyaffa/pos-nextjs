@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateUser } from "@/api/user";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function UpdateUser(user) {
@@ -23,34 +24,9 @@ export default function UpdateUser(user) {
         setShowPassword(!showPassword);
     }
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch(`http://localhost:5000/products/${product.id}`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    username: username,
-                    password: password,
-                    name: name,
-                    role: role,
-                    phone_number: phone_number,
-                    address: address,
-                    is_active: is_active,
-                })
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
+    const handleSubmit = (e) => {
+        updateUser(e, username, password, name, role, phone_number, 
+            address, is_active, setIsMutating, router, setModal);
     }
 
     function handleChange()
@@ -76,9 +52,9 @@ export default function UpdateUser(user) {
                     Edit User Information {user.name}
                 </h3>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Name
                         </label>

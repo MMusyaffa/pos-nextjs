@@ -23,42 +23,10 @@ export default function AddUser() {
 
     const router = useRouter();
 
-    async function handleSubmit(e)
-    {
-        e.preventDefault();
-
-        setIsMutating(true);
-
-        await fetch ("http://localhost:5000/products",
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    username: username,
-                    password: password,
-                    name: name,
-                    role: role,
-                    phone_number: phone_number,
-                    address: address,
-                    is_active: is_active,
-                })
-        });
-
-        setIsMutating(false);
-
-        setUsername("");
-        setPassword("");
-        setName("");
-        setRole("");
-        setPhone_number("");
-        setAddress("");
-        setStatus("");
-
-        router.refresh();
-        setModal(false);
+    const addUserForm = (e) => {
+        addUser(e, username, password, name, role, phone_number, 
+            address, is_active, setIsMutating, setUsername, setPassword,
+            setName, setRole, setPhone_number, setAddress, setStatus, router, setModal);
     }
 
     function handleChange()
@@ -84,7 +52,7 @@ export default function AddUser() {
                     Add New user
                 </h3>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={addUserForm}>
 
                     <div className="form-control mt-3">
                         <label className="label font-bold">
