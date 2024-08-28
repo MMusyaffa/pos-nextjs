@@ -5,7 +5,7 @@ import dummyUsers from "../data/dummyUser.json";
 export async function getUser()
 {
     if (usingDummyData) {
-        return dummyUsers.account;
+        return dummyUsers.data.account;
     }
     else {
         const response = await fetch("http://localhost:4000/data");

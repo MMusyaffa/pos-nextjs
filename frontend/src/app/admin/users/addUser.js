@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { addUser } from "@/api/user";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function AddUser() {
