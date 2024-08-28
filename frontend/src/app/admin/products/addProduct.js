@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { addProduct } from "@/api/products";
 
 export default function AddProduct() {
 
@@ -9,46 +10,44 @@ export default function AddProduct() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const [available, setAvailable] = useState("");
     const [category_id, setCategories] = useState("");
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, setName, setPrice, setDescription, 
+                                setAvailable, setCategories, router, setModal)
+    {
+        setIsMutating(false);
+        setName("");
+        setPrice("");
+        setDescription("");
+        setAvailable("");
+        setCategories("");
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
-    async function handleSubmit(e)
-    {
-        e.preventDefault();
+    const addProductForm = (e) => {
+        handleBeforeSubmit(e, setIsMutating);
 
-        setIsMutating(true);
+        addProduct(name, price, description, available, category_id, image_url);
 
-        await fetch ("http://localhost:5000/products",
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                    price: price,
-                    description: description,
-                    category_id: category_id,
-                    image_url: image_url,
-                })
-        });
-
-        setIsMutating(false);
-
-        setName("");
-        setPrice("");
-        setDescription("");
-        router.refresh();
-        setModal(false);
+        handleAfterSubmit(setIsMutating, setName, setPrice, setDescription, 
+            setAvailable, setCategories, router, setModal);
     }
 
     function handleChange()
@@ -74,9 +73,9 @@ export default function AddProduct() {
                     Add New product
                 </h3>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={addProductForm}>
                     
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product Image
                         </label>
@@ -91,7 +90,7 @@ export default function AddProduct() {
                         </p>
 
                         <input 
-                            type="text"
+                            type="url"
                             value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
@@ -125,6 +124,20 @@ export default function AddProduct() {
                         />
                     </div>
 
+                    <div className="form-control mt-3">
+                        <label className="label font-bold">
+                            Stock
+                        </label>
+                        <input
+                            type="number"
+                            value={available}
+                            onChange={(e) => setAvailable(e.target.value)}
+                            min="0"
+                            className="input w-full input-bordered"
+                            placeholder="Enter Stock Available"
+                        />
+                    </div>
+
                     <div className="form-control mt-3 ">
                         <label className="label font-bold">
                             Category
@@ -136,7 +149,7 @@ export default function AddProduct() {
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
-                                    <option value="">Pilih categories</option>
+                                    <option value="">Select Category</option>
                                     <option value="1">Makanan</option>
                                     <option value="2">Minuman</option>
                                     <option value="3">Snack</option>
@@ -167,6 +180,7 @@ export default function AddProduct() {
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
+                            min="0"
                             className="input w-full input-bordered"
                             placeholder="Enter Price"
                         />

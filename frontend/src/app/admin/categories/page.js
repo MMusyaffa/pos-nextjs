@@ -1,11 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { getCategory } from "@/api/categories";
 import AddCategories from "./addCategories";
 import DeleteCategories from "./deleteCategories";
 import UpdateCategories from "./updateCategories";
-
-import dummyData from "../../../data/dummy.json";
 
 // export const metadata = {
 //   title: "Categories List",
@@ -13,26 +12,14 @@ import dummyData from "../../../data/dummy.json";
 
 const usingDummyData = true;
 
-async function fetchCategories()
-{
-    if (usingDummyData) {
-        return dummyData.data.categories;
-    }
-    else {
-        return null;
-    }
-}
-
 export default function CategoriesList() {
 
     //const categories = await getCategories();
     const [getCategories, setGetCategories] = useState([]);
     
     useEffect(()=> {
-        fetchCategories()
-            .then( function (res) {setGetCategories(res)
-            })
-
+        getCategory()
+            .then(res => setGetCategories(res))
     }, []);
     
 

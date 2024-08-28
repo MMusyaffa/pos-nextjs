@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateProduct } from "@/api/products";
 
 export default function UpdateProduct(product) {
 
@@ -9,43 +10,37 @@ export default function UpdateProduct(product) {
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
     const [description, setDescription] = useState(product.description);
+    const [available, setAvailable] = useState(product.available);
     const [category_id, setCategories] = useState(product.category_id);
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating)
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, router, setModal)
+    {
+        setIsMutating(false);
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
+    const handleSubmit = (e) => {
+        handleBeforeSubmit(e, setIsMutating);
 
-        setIsMutating(true);
+        updateProduct(name, price, description, available, category_id, image_url);
 
-        await fetch(`http://localhost:5000/products/${product.id}`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                    price: price,
-                    description: description,
-                    category_id: category_id,
-                    image_url: image_url,
-                })
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
+        handleAfterSubmit(setIsMutating, router, setModal);
     }
 
     function handleChange()
@@ -71,9 +66,9 @@ export default function UpdateProduct(product) {
                     Edit product {product.name}
                 </h3>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product Image
                         </label>
@@ -88,7 +83,7 @@ export default function UpdateProduct(product) {
                         </p>
 
                         <input 
-                            type="text"
+                            type="url"
                             value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
@@ -96,7 +91,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product name
                         </label>
@@ -109,7 +104,7 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Product description
                         </label>
@@ -122,7 +117,20 @@ export default function UpdateProduct(product) {
                         />
                     </div>
 
-                    <div className="form-control mt-3 ">
+                    <div className="form-control mt-3">
+                        <label className="label font-bold">
+                            Product available
+                        </label>
+                        <input
+                            type="number"
+                            value={available}
+                            onChange={(e) => setAvailable(e.target.value)}
+                            className="input w-full input-bordered"
+                            placeholder="Enter Product description"
+                        />
+                    </div>
+
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories
                         </label>
@@ -133,7 +141,7 @@ export default function UpdateProduct(product) {
                                 onChange={(e) => setCategories(e.target.value)}
                                 className="input w-full input-bordered pr-8">
 
-                                    <option value="">Pilih categories</option>
+                                    <option value="">Select Category</option>
                                     <option value="1">Makanan</option>
                                     <option value="2">Minuman</option>
                                     <option value="3">Snack</option>
@@ -156,7 +164,7 @@ export default function UpdateProduct(product) {
                         </div>
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Price
                         </label>
@@ -164,6 +172,7 @@ export default function UpdateProduct(product) {
                             type="text"
                             value={price}
                             onChange={(e) => setPrice(Number(e.target.value))}
+                            min="0"
                             className="input w-full input-bordered"
                             placeholder="Enter Price"
                         />

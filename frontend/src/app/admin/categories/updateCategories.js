@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateCategory } from "@/api/categories";
 
 export default function UpdateCategories(categories) {
 
@@ -12,34 +13,31 @@ export default function UpdateCategories(categories) {
 
     const router = useRouter();
 
+    function handleBeforeSubmit(e, setIsMutating) 
+    {
+        e.preventDefault();
+        setIsMutating(true);
+    }
+
+    function handleAfterSubmit(setIsMutating, router, setModal)
+    {
+        setIsMutating(false);
+        router.refresh();
+        setModal(false);
+    }
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setImage(file);
     };
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
+    const handleSubmit = (e) => {
+        handleBeforeSubmit(e, setIsMutating);
 
-        setIsMutating(true);
+        updateCategory(name, image_url);
 
-        await fetch(`http://localhost:4000/categories/${categories.id}`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify({
-                    name: name,
-                })
-        });
-
-        setIsMutating(false);
-
-        router.refresh();
-        setModal(false);
-    }
+        handleAfterSubmit(setIsMutating, setName, router, setModal);
+    };
 
     function handleChange()
     {
@@ -61,12 +59,12 @@ export default function UpdateCategories(categories) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Edit product {categories.name}
+                    Edit Category {categories.name}
                 </h3>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories Image
                         </label>
@@ -79,7 +77,7 @@ export default function UpdateCategories(categories) {
                             Or Input Image URL
                         </p>
                         <input 
-                            type="text"
+                            type="url"
                             value={image_url}
                             onChange={(e) => setImage(e.target.value)}
                             className="input w-full input-bordered mt-2.5"
@@ -87,7 +85,7 @@ export default function UpdateCategories(categories) {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control mt-3">
                         <label className="label font-bold">
                             Categories name
                         </label>

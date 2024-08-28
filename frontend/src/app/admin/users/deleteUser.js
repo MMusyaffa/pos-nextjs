@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteCategory } from "@/api/categories";
+import { deleteUser } from "@/api/user";
 
-export default function DeleteCategories(categories) {
+export default function DeleteUser(user) {
 
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
@@ -43,20 +43,19 @@ export default function DeleteCategories(categories) {
         <div className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">
-                    Delete this {categories.name}?
+                    Delete user {user.name}?
                 </h3>
-
                 <div className="modal-action">
                     <button type="button" className="btn" onClick={handleChange}>
                         Close
                     </button>
                     {!isMutating ? (
                         <button
-                        type="button" 
+                        type="button"
                         onClick={() => {
                             handleBeforeDelete(setIsMutating);
-                            deleteCategory(categories.id).finally
-                            (handleAfterDelete(setIsMutating, router, setModal));
+                            deleteUser(userId).finally
+                            (handleAfterDelete(setIsMutating, router, setModal))
                         }}
                         className="btn btn-primary">
                         Delete
@@ -67,7 +66,6 @@ export default function DeleteCategories(categories) {
                         </button>
                     )}
                 </div>
-
             </div>
         </div>
    </div>
