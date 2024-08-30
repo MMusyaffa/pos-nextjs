@@ -19,9 +19,9 @@ export default function SideBarAdmin() {
 
             <li>
                 <a
-                    href="#" onClick={() => setSelectedContent("dashboard")}
+                    href="#" onClick={() => setSelectedContent("login")}
                     className={`block rounded-lg px-4 py-2 text-sm font-medium ${
-                        isActive("dashboard") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        isActive("login") ? "bg-gray-100 text-gray-700" : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                         }`}
                     > Dashboard
                 </a>
