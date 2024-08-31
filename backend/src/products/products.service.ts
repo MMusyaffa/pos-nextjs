@@ -6,9 +6,6 @@ import { GetProductDto } from './dtos/get-product.dto.js';
 import { UpdateProductDto } from './dtos/update-product.dto.js';
 import { ResponseSuccess } from '../transform/transform.interceptor.js';
 
-// todo: move to config
-const BASE_URL = `${process.env.BASE_URL || "http://localhost:3000" }/public/`;
-
 @Injectable()
 export class ProductsService {
 
@@ -155,7 +152,7 @@ export class ProductsService {
         name: product.name,
         price: product.price,
         description: product.description,
-        image_url: product.upload_id ? `${BASE_URL}${product.upload_filename}` : product.image_url,
+        image_url: product.upload_id ? `${process.env.BASE_URL}/public/${product.upload_filename}` : product.image_url,
         category_id: product.category_id ? (product.category_is_archived ? '' : product.category_id) : '',
         category_name: product.category_id ? (product.category_is_archived ? '' : product.category_name) : '',
       }
