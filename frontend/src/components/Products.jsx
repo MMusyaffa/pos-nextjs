@@ -3,23 +3,46 @@ import { useContext, useEffect, useState } from "react";
 import { IdCurrentCategoryContext } from "../utils/contexts";
 import { sleep } from "../utils/helpers";
 import ProductItem from "./ProductItem";
-
-import dummyData from "../data/dummy.json"
+import { getProducts } from "@/api/products";
+import { getCategories } from "@/api/categories";
 
 export default function Products() {
-    const productData = dummyData.data.products;
-    const {idCurrentCategory} = useContext(IdCurrentCategoryContext)
+    const {idCurrentCategory, setIdCurrentCategory} = useContext(IdCurrentCategoryContext)
     const [products, setProducts] = useState(null)
 
+    // get the first category id
+    // and set it as the current category
+    useEffect(() => {
+        getCategories().then((data) => {
+            if (data.length > 0) {
+                setIdCurrentCategory(data[0].id)
+            }
+        });
+    }, [])
+
+
+    // update products when the current category changes
     useEffect(() => {
         async function filterProduct(idCurrentCategory) {
             setProducts(null)
-            let fiteredProducts = productData.filter((product) => product.category_id === idCurrentCategory)
+
+            // get all products
+            let filteredProducts = await getProducts();
+            
+            // filter products by category
+            filteredProducts = filteredProducts.filter((product) => product.category_id === idCurrentCategory)
+            filteredProducts = filteredProducts.map((product) => ({
+                ...product,
+                devise: "$",
+                available: "Not implemented",
+            }))
+
             await sleep(500)
-            setProducts(fiteredProducts)
+            setProducts(filteredProducts)
         }
 
-        filterProduct(idCurrentCategory)
+        filterProduct(idCurrentCategory);
+        
     }, [idCurrentCategory]) 
 
    
