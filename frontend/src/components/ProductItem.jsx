@@ -67,7 +67,7 @@ export default function ProductItem({productProps}) {
                 <div className="h-40 w-full bg-cover bg-center rounded-lg" style={{backgroundImage: `url(${productProps.image_url || "/products/foodIcon.svg"})`}} alt="food icon"></div>
                 <div className="flex items-center">
                     <span className="text-sm">{productProps.name} |</span>
-                    <span className="ml-2 text-stone-400 text-[10px]">{productProps.note}</span>
+                    <span className="ml-2 text-stone-400 text-[10px]">{productProps.description}</span>
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="font-bold">{`${productProps.devise} ${productProps.price}`} </span>

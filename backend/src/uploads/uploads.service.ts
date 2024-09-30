@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { writeFile, rm } from 'fs/promises';
 import { DatabasesService } from '../databases/databases.service.js';
 import { existsSync } from 'fs';
+import { ResponseSuccess } from '../transform/transform.interceptor.js';
 
 interface UploadFile {
   id: string;
@@ -20,7 +21,7 @@ export class UploadsService {
   ) {}
 
   // === Upload file locally and save to database ===
-  async uploadFile(employee_id: string, file: Express.Multer.File): Promise<any> {
+  async uploadFile(employee_id: string, file: Express.Multer.File): Promise<ResponseSuccess<any>> {
     var randomName = `${file.fieldname}-${Date.now()}.${file.mimetype.split('/')[1]}`;
     return new Promise((resolve, reject) => {
       writeFile(`public/${randomName}`, file.buffer)
@@ -43,12 +44,18 @@ export class UploadsService {
                 }
                 await trx('uploads').insert(uploadFile);
               });
-              resolve({ id: uploadFile.id, filename: uploadFile.filename });
+              resolve({
+                message: 'File uploaded successfully',
+                data: { id: uploadFile.id, filename: uploadFile.filename }
+              });
             } catch (err) {
               throw err;
             }
           }
-          resolve(randomName)
+          resolve({
+            message: 'File uploaded successfully',
+            data: { filename: randomName }
+          });
         })
         .catch((err) => {
           // remove file if error

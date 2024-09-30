@@ -1,51 +1,137 @@
-const usingDummyData = true;
-
 import dummyData from "../data/dummy.json";
 
-export async function getCategory()
-{
-    if (usingDummyData) {
-        return dummyData.data.categories;
-    }
-    else {
-        return null;
-    }
+const ApiUrl = process.env.API_URL;
+const token = process.env.TOKEN;
+const usingDummyData = (process.env.IS_USE_DUMMY_DATA === "true") ? true : false;
+
+export async function getCategories() {
+    const promise = new Promise((resolve, reject) => {
+        if (usingDummyData) {
+            resolve(dummyData.data.categories);
+        }
+        else {
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            };
+            fetch(`${ApiUrl}/categories`, options)
+                .then(async (res) => {
+                    const result = await res.json();
+                    if (res.ok) {
+                        // HTTP OK return data
+                        resolve(result.data);
+                    }
+                    else {
+                        // HTTP error return empty []
+                        reject(result.message);
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        }
+    });
+    return promise;
 }
 
-export async function addCategory(name, image_url)
-{
-    await fetch("http://localhost:4000/categories", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            image_url: image_url,
-        })
+export async function addCategory(category) {
+    const promise = new Promise((resolve, reject) => {
+        if (usingDummyData) {
+            resolve();
+        } else {
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(category)
+            };
+            fetch(`${ApiUrl}/categories`, options)
+                .then(async (res) => {
+                    const result = await res.json();
+                    if (res.ok) {
+                        // HTTP OK return data
+                        resolve(result);
+                    }
+                    else {
+                        // HTTP error return empty []
+                        reject(result.message);
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        }
     });
+    return promise;
 }
 
-export async function updateCategory(name, image_url)
-{
-    await fetch(`http://localhost:4000/categories/${categories.id}`,
-    {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:
-            JSON.stringify({
-                name: name,
-                image_url: image_url,
-            })
+export async function updateCategory(id, category) {
+    const promise = new Promise((resolve, reject) => {
+        if (usingDummyData) {
+            resolve();
+        } else {
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(category)
+            };
+            fetch(`${ApiUrl}/categories/${id}`, options)
+                .then(async (res) => {
+                    const result = await res.json();
+                    if (res.ok) {
+                        // HTTP OK return data
+                        resolve(result);
+                    }
+                    else {
+                        // HTTP error return empty []
+                        reject(result.message);
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        }
     });
+    return promise;
 }
 
-export async function deleteCategory(categoriesId)
-{
-    await fetch (`http://localhost:4000/categories/${categoriesId}`,
-    {
-        method: 'DELETE',
+export async function deleteCategory(categoriesId) {
+    const promise = new Promise((resolve, reject) => {
+        if (usingDummyData) {
+            resolve();
+        } else {
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            };
+
+            fetch(`${ApiUrl}/categories/${categoriesId}`, options)
+                .then(async (res) => {
+                    const result = await res.json();
+                    if (res.ok) {
+                        // HTTP OK return data
+                        resolve(result);
+                    }
+                    else {
+                        // HTTP error return empty []
+                        reject(result.message);
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        }
     });
+    return promise;
 }

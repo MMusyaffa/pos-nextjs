@@ -7,9 +7,6 @@ import { Employee } from '../employees/employees.service.js';
 import { ResponseSuccess } from 'src/transform/transform.interceptor.js';
 import { existsSync } from 'fs';
 
-// todo: move to config
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000/';
-
 @Injectable()
 export class CategoriesService {
   constructor(
@@ -64,10 +61,10 @@ export class CategoriesService {
         }
 
         // Check if category with the same name exists
-        const categoryExists = await trx('categories').select('id').where({ name: createCategoryDto.name }).first();
-        if (categoryExists) {
-          throw new BadRequestException("Category with the same name already exists");
-        }
+        // const categoryExists = await trx('categories').select('id').where({ name: createCategoryDto.name }).first();
+        // if (categoryExists) {
+        //   throw new BadRequestException("Category with the same name already exists");
+        // }
 
         // Check if upload exists
         if (createCategoryDto.upload_id) {
@@ -133,7 +130,7 @@ export class CategoriesService {
         id: category.id,
         name: category.name,
         image_url: category.upload_id 
-        ? (this.checkIfImageExists(category.upload_filename) && `${BASE_URL}${category.upload_filename}`) 
+        ? (this.checkIfImageExists(category.upload_filename) ? `${process.env.BASE_URL}/public/${category.upload_filename}` : '')
         : category.image_url || '',
       })),
     };
@@ -265,7 +262,6 @@ export class CategoriesService {
 
         // Update upload
         await trx('uploads').where({ id: category.upload_id }).update({
-          is_used: false,
           updated_at: new Date(),
           last_updated_by: employee_id,
         });

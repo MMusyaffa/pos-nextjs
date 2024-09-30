@@ -4,70 +4,72 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteProduct } from "@/api/products";
 
-export default function DeleteProduct(product) {
+export default function DeleteProduct({ product, setChanges }) {
 
     const [modal, setModal] = useState(false);
     const [isMutating, setIsMutating] = useState(false);
 
-    const router = useRouter();
 
-    function handleBeforeDelete(setIsMutating) 
-    {
+    function handleBeforeDelete() {
         setIsMutating(true);
     }
 
-    function handleAfterDelete(setIsMutating, router, setModal)
-    {
+    function handleAfterDelete() {
         setIsMutating(false);
-        router.refresh();
         setModal(false);
+        setChanges((prev) => prev + 1);
     }
 
-    function handleChange()
-    {
+    async function handleDelete() {
+        handleBeforeDelete();
+        try {
+            await deleteProduct(product.id)
+        } catch (err) {
+            // TODO: Handle if delete product error
+        }
+        handleAfterDelete();
+    }
+
+    function handleChange() {
         setModal(!modal);
     }
 
-  return (
-   <div>
-        <button className="btn btn-error btn-sm" onClick={handleChange}>
-            Delete
-        </button>
-    <input 
-        type="checkbox" 
-        checked={modal} 
-        onChange={handleChange} 
-        className="modal-toggle"
-    />
+    return (
+        <div>
+            <button className="btn btn-error btn-sm" onClick={handleChange}>
+                Delete
+            </button>
+            <input
+                type="checkbox"
+                checked={modal}
+                onChange={handleChange}
+                className="modal-toggle"
+            />
 
-        <div className="modal">
-            <div className="modal-box">
-                <h3 className="font-bold text-lg">
-                    Delete this {product.name}?
-                </h3>
-                <div className="modal-action">
-                    <button type="button" className="btn" onClick={handleChange}>
-                        Close
-                    </button>
-                    {!isMutating ? (
-                        <button
-                        type="button"
-                        onClick={() => {
-                            handleBeforeDelete(setIsMutating);
-                            deleteProduct(productId).finally
-                            (handleAfterDelete(setIsMutating, router, setModal));
-                        }}
-                        className="btn btn-primary">
-                        Delete
-                      </button>
-                    ) : (
-                        <button type="button" className="btn loading">
-                        Deleting...
+            <div className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">
+                        Delete this {product.name}?
+                    </h3>
+                    <div className="modal-action">
+                        <button type="button" className="btn" onClick={handleChange}>
+                            Close
                         </button>
-                    )}
+                        {!isMutating ? (
+                            <button
+                                type="button"
+                                onClick={handleDelete}
+                                className="btn btn-primary">
+                                Delete
+                            </button>
+                        ) : (
+                            <button type="button" className="btn loading">
+                                Deleting...
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
-   </div>
-  );
+    );
 }
