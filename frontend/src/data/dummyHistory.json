@@ -10,10 +10,12 @@
                 "product": "Chicken Pop Rice Bowl",
                 "qty": 2,
                 "description": "Cabainya 2",
-                "price": 70000
+                "price": 70000,
+                "game_board": "Chess",
+                "game_board_qty": 1
             },
             {
-                "id": 1,
+                "id": 2,
                 "date": 20240413,
                 "order_id": "ACD20240413",
                 "employee": "Ridwan",
@@ -21,10 +23,12 @@
                 "product": "Milkshake",
                 "qty": 2,
                 "description": "Coklat dan Vanila",
-                "price": 60000
+                "price": 60000,
+                "game_board": "",
+                "game_board_qty": 0
             },
             {
-                "id": 2,
+                "id": 3,
                 "date": 20240413,
                 "order_id": "BBD20240413",
                 "employee": "Ridwan",
@@ -32,10 +36,12 @@
                 "product": "Nasi Goreng Dhadhu",
                 "qty": 1,
                 "description": "Pedes banget",
-                "price": 36000
+                "price": 36000,
+                "game_board": "D&D Dragons",
+                "game_board_qty": 1
             },
             {
-                "id": 2,
+                "id": 4,
                 "date": 20240413,
                 "order_id": "BBD20240413",
                 "employee": "Ridwan",
@@ -43,10 +49,12 @@
                 "product": "Thai Tea",
                 "qty": 1,
                 "description": "Less Sugar",
-                "price": 26500
+                "price": 26500,
+                "game_board": "",
+                "game_board_qty": 0
             },
             {
-                "id": 2,
+                "id": 5,
                 "date": 20240413,
                 "order_id": "BBD20240413",
                 "employee": "Ridwan",
@@ -54,7 +62,191 @@
                 "product": "Waffle",
                 "qty": 2,
                 "description": "Gula tropicana",
-                "price": 32500
+                "price": 65000,
+                "game_board": "",
+                "game_board_qty": 0
+            },
+            {
+                "id": 6,
+                "date": 20240414,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Ozan",
+                "product": "Tempe",
+                "qty": 10,
+                "description": "Cabenya yang banyak",
+                "price": 250500,
+                "game_board": "D&D Dragons",
+                "game_board_qty": 1
+            },
+            {
+                "id": 6,
+                "date": 20240415,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Gaga",
+                "product": "Tempe",
+                "qty": 10,
+                "description": "Cabenya yang banyak",
+                "price": 250500,
+                "game_board": "",
+                "game_board_qty": 0
+            },
+            {
+                "id": 6,
+                "date": 20240415,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Gaga",
+                "product": "Waffle",
+                "qty": 2,
+                "description": "",
+                "price": 65000,
+                "game_board": "",
+                "game_board_qty": 0
+            },
+            {
+                "id": 6,
+                "date": 20240414,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Gaga",
+                "product": "Thai Tea",
+                "qty": 10,
+                "description": "Cabenya yang banyak",
+                "price": 265000,
+                "game_board": "",
+                "game_board_qty": 1
+            },
+            {
+                "id": 6,
+                "date": 20240414,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Cindii",
+                "product": "Chicken Pop Rice Bowl",
+                "qty": 1,
+                "description": "",
+                "price": 35000,
+                "game_board": "",
+                "game_board_qty": 1
+            },
+            {
+                "id": 6,
+                "date": 20240414,
+                "order_id": "BBZ009240413",
+                "employee": "Ridwan",
+                "customer": "Cindii",
+                "product": "Milkshake",
+                "qty": 10,
+                "description": "Cabenya yang banyak",
+                "price": 300000,
+                "game_board": "Villainous",
+                "game_board_qty": 1
+            },
+            {
+                "id": 7,
+                "date": 20240914,
+                "order_id": "ACZ889245463",
+                "employee": "Ridwan",
+                "customer": "SuperMan",
+                "product": "Milkshake",
+                "qty": 1,
+                "description": "Vanila topping",
+                "price": 30000,
+                "game_board": "",
+                "game_board_qty": 0
+            },
+            {
+                "id": 8,
+                "date": 20240914,
+                "order_id": "ACZ889245463",
+                "employee": "Ridwan",
+                "customer": "SuperMan",
+                "product": "Waffle",
+                "qty": 10,
+                "description": "Vanila, Matcha, Oreo, dan Chocolate topping",
+                "price": 325000,
+                "game_board": "Catan",
+                "game_board_qty": 1
+            },
+            {
+                "id": 9,
+                "date": 20240914,
+                "order_id": "ACZ889245463",
+                "employee": "Ridwan",
+                "customer": "Ozan",
+                "product": "Waffle",
+                "qty": 10,
+                "description": "Vanila, Matcha, Oreo, dan Chocolate topping",
+                "price": 325000,
+                "game_board": "Catan",
+                "game_board_qty": 1
+            },
+            {
+                "id": 10,
+                "date": 20240929,
+                "order_id": "DZZ889244869",
+                "employee": "Ridwan",
+                "customer": "Deya",
+                "product": "Waffle",
+                "qty": 2,
+                "description": "Matcha dan Oreo topping",
+                "price": 65000,
+                "game_board": "Ludo",
+                "game_board_qty": 1
+            },
+            {
+                "id": 11,
+                "date": 20240929,
+                "order_id": "DCD789745469",
+                "employee": "Ridwan",
+                "customer": "Miiii",
+                "product": "Nasi Goreng Dhadhu",
+                "qty": 3,
+                "description": "Ga pedes",
+                "price": 109000,
+                "game_board": "Monopoly",
+                "game_board_qty": 1
+            },
+            {
+                "id": 11,
+                "date": 20240929,
+                "order_id": "ACZ889245463",
+                "employee": "Ridwan",
+                "customer": "Aku",
+                "product": "Chicken Pop Rice Bowl",
+                "qty": 2,
+                "description": "Ayam bumbu kepiting",
+                "price": 70000,
+                "game_board": "The Lord of the Rings: The Card Game",
+                "game_board_qty": 1
+            },
+            {
+                "id": 12,
+                "date": 20240930,
+                "order_id": "ZZZ889277700",
+                "employee": "Ridwan",
+                "customer": "Orang hilang",
+                "product": "Thai Tea",
+                "qty": 1,
+                "description": "Less Ice",
+                "price": 26500,
+                "game_board": "Villainous",
+                "game_board_qty": 1
+            },
+            {
+                "id": 13,
+                "date": 20240930,
+                "order_id": "ZBB080207590",
+                "employee": "Ridwan",
+                "customer": "Orang kedua",
+                "product": "Chocolate Gelato",
+                "qty": 2,
+                "description": "Tanpa topping",
+                "price": 40000,
+                "game_board": "D&D Dragons",
+                "game_board_qty": 1
             }
         ]
     }

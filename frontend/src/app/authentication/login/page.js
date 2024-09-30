@@ -3,12 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getLogin } from "@/api/login";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +23,7 @@ export default function Login() {
 
     return (
         <div className="flex items-center justify-center min-h-screen ml-auto mr-auto">
-            <div className="bg-white shadow-lg rounded-lg py-8 px-10 w-96">
+            <div className="bg-white shadow-md rounded-lg py-8 px-10 w-96">
                 <div className="text-center mb-6">
                     <img src="/products/dhadhu-logo.png" alt="Logo" className="w-24 mx-auto mb-4" />
                     <h1 className="text-2xl font-bold">Welcome Master</h1>
@@ -43,18 +49,25 @@ export default function Login() {
                     />
                     </div>
 
-                    <div className="mb-6">
+                    <div className="relative mb-6">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                             Password
                         </label>
                         <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        required
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-10"  // Add pr-10 to add padding on the right
+                            required
                         />
+                        <button
+                            type="button"
+                            onClick={togglePassword}
+                            className="absolute inset-y-0 right-0 pr-3 pt-6 flex items-center text-gray-600"
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
                     </div>
 
                     <button

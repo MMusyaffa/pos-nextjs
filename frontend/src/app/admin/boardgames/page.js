@@ -1,24 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { getCategory } from "@/api/categories";
+import { getBoardgame } from "@/api/boardgames"
 import NavbarAdmin from "../components/Navbar";
-import AddCategories from "./addCategories";
-import DeleteCategories from "./deleteCategories";
-import UpdateCategories from "./updateCategories";
+import AddBoardgames from "./addBoardgames";
+import DeleteBoardgames from "./deleteBoardgames";
+import UpdateBoardgames from "./updateBoardgames";
 
-// export const metadata = {
-//   title: "Categories List",
-// };
-
-export default function CategoriesList() {
+export default function BoardgamesList() {
 
     //const categories = await getCategories();
-    const [getCategories, setGetCategories] = useState([]);
+    const [getBoardgames, setGetBoardGames] = useState([]);
     
     useEffect(()=> {
-        getCategory()
-            .then(res => setGetCategories(res))
+        getBoardgame()
+            .then(res => setGetBoardGames(res))
     }, []);
     
 
@@ -28,36 +24,39 @@ export default function CategoriesList() {
                 <NavbarAdmin />
             </div>
             <div className="ml-56 mt-5">
-                <AddCategories/>
+                <AddBoardgames/>
             </div>
             <table className="table ml-56 mt-5 mb-10 w-10/12">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Image</th>
-                        <th>Categories Name</th>
+                        <th>Name</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                
                 <tbody>
-                    {getCategories.map((categories, index) => 
+                    {getBoardgames.map((boardgames, index) => 
                     (
-                        <tr key = {categories.id}>
+                        <tr key = {boardgames.id}>
                             <td>
                                 {index + 1}
                                 </td>
                             <td>
-                                <img src={categories.image_url} style={{ maxWidth: '100px' }}/>
+                                <img src={boardgames.image_url} style={{ maxWidth: '100px' }}/>
                             </td>
                             <td>
-                                {categories.name}
+                                {boardgames.name}
+                            </td>
+                            <td>
+                                {boardgames.category}
                             </td>
                             <td className="flex">
                                 <div className="mr-1">
-                                    <UpdateCategories {...categories}/>
+                                    <UpdateBoardgames {...boardgames}/>
                                 </div>
-                                    <DeleteCategories {...categories}/>
+                                    <DeleteBoardgames {...boardgames}/>
                             </td>
                         </tr>
                     ))}

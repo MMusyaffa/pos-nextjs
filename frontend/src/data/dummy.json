@@ -128,6 +128,50 @@
         "name": "Takjil", 
         "image_url": ""
       }
+    ],
+    "boardgames": [
+      {
+        "id": 1,
+        "name": "D&D Dragons",
+        "category": "RPG, Narrative",
+        "image_url": "https://m.media-amazon.com/images/I/91qxAgeJG7L._AC_UF894,1000_QL80_.jpg"
+      },
+      { 
+        "id": 2,
+        "name": "Chess",
+        "category": "Strategy",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Chess_board_opening_staunton.jpg/1200px-Chess_board_opening_staunton.jpg"
+      },
+      { 
+        "id": 3,
+        "name": "Monopoly",
+        "category": "Economy, Family",
+        "image_url": "https://www.mothercare.co.id/media/catalog/product/1/3/133761in_1_wid_800_hei_800.jpg?optimize=low&bg-color=255,255,255&fit=bounds&height=608&width=608&canvas=608:608" 
+      },
+      { 
+        "id": 4,
+        "name": "Ludo",
+        "category": "Strategy, Family",
+        "image_url": "https://media.istockphoto.com/id/493120080/id/vektor/papan-permainan-ludo-vektor.jpg?s=612x612&w=0&k=20&c=et2ItXAegZyKcnALeDe43RjzElnCU0j2jPFbJhRdFB4="
+      },
+      { 
+        "id": 5,
+        "name": "Catan",
+        "category": "Strategy, Family",
+        "image_url": "https://littlejordantoys.com/wp-content/uploads/2022/08/catan-family4.jpg" 
+      },
+      { 
+        "id": 6,
+        "name": "Villainous",
+        "category": "Strategy, Family",
+        "image_url": "https://ravensburger.cloud/images/produktseiten/310x250/26295_1.webp" 
+      },
+      { 
+        "id": 7,
+        "name": "The Lord of the Rings: The Card Game",
+        "category": "Strategy",
+        "image_url": "https://upload.wikimedia.org/wikipedia/en/5/5f/The-Lord-of-the-Rings-The-Card-Game-box-layout.png" 
+      }
     ]
   }
 }

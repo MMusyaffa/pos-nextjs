@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { getProduct } from "@/api/products";
+import { getCategory } from "@/api/categories";
+import NavbarAdmin from "../components/Navbar";
 import AddProduct from "./addProduct";
 import DeleteProduct from "./deleteProduct";
 import UpdateProduct from "./updateProduct";
-
-import dummyData from "../../../data/dummy.json";
-
-// export const metadata = {
-//     title: "Product List",
-//   };
-
-const categories = dummyData.data.categories;
 
 const formatRupiah = (angka, prefix) => {
 
@@ -33,67 +27,73 @@ const formatRupiah = (angka, prefix) => {
 
 export default function ProductsList() 
 {
-    // const products = await getProducts();
     const [getProducts, setGetProducts] = useState([]);
+    const [getCategories, setGetCategories] = useState([]);
 
     useEffect(()=> {
-        getProduct()
-            .then( function (tit) {setGetProducts(tit)
-            })
+        async function fetchData() {
+            try {
+                // Gunakan Promise.all untuk menunggu kedua API selesai
+                const [productsData, categoriesData] = await Promise.all([getProduct(), getCategory()]);
+                
+                setGetProducts(productsData);  // Set hasil produk
+                setGetCategories(categoriesData);  // Set hasil kategori
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchData();
 
     }, []);
     
     return (
-        // <div className="flex">
-        //     <SideBarAdmin />
-
-            <div className="py-3 px-10 w-full ml-36">
-            <h2 className="text-3xl font-bold sm:text-4l">Dhadhu Caffee Dashboard</h2>
-            <h2 className="py-4 text-l font-medium">Welcome Admin 1 </h2>
-                <div className="py-2 pt-8">
-                    <AddProduct/>
-                </div>
-                
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Description</th>
-                            <th>stock</th>
-                            <th>Categories</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {getProducts.map((product, index) => {
-                            const categoryName = categories.find(category => category.id === product.category_id)?.name;
-
-                            return (
-                                <tr key = {product.id}>
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        <img src={product.image_url} style={{ maxWidth: '90px' }}/>
-                                    </td>
-                                    <td>{product.name}</td>
-                                    <td>{product.description}</td>
-                                    <td>{product.available}</td>
-                                    <td>{categoryName}</td>
-                                    <td>{formatRupiah(product.price.toString(), 'Rp')}</td>
-                                    <td className="flex">
-                                        <div className="mr-1">
-                                            <UpdateProduct {...product}/>
-                                        </div>
-                                            <DeleteProduct {...product}/>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+        <div className="w-screen">
+            <div className="ml-56">
+                <NavbarAdmin />
             </div>
-        //</div>
+            <div className="ml-56 mt-5">
+                <AddProduct/>
+            </div>
+            <table className="table ml-56 mt-5 mb-10 w-10/12">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>stock</th>
+                        <th>Categories</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {getProducts.map((product, index) => {
+                        const categoryName = getCategories.find(category => category.id === product.category_id)?.name;
+
+                        return (
+                            <tr key = {product.id}>
+                                <td>{index + 1}</td>
+                                <td>
+                                    <img src={product.image_url} style={{ maxWidth: '90px' }}/>
+                                </td>
+                                <td>{product.name}</td>
+                                <td>{product.description}</td>
+                                <td>{product.available}</td>
+                                <td>{categoryName}</td>
+                                <td>{formatRupiah(product.price.toString(), 'Rp')}</td>
+                                <td className="flex">
+                                    <div className="mr-1">
+                                        <UpdateProduct {...product}/>
+                                    </div>
+                                        <DeleteProduct {...product}/>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
 } 

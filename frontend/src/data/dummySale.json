@@ -1,0 +1,327 @@
+{
+  "data": {
+    "sales": [
+      {
+        "id": 1,
+        "date": 20230111,
+        "selling": 25,
+        "profit": "20300",
+        "expenses": 13
+      },
+      {
+        "id": 2,
+        "date": 20230212,
+        "selling": 20,
+        "profit": "20000",
+        "expenses": 13
+      },
+      {
+        "id": 3,
+        "date": 20230313,
+        "selling": 21,
+        "profit": "20000",
+        "expenses": 13
+      },
+      {
+        "id": 4,
+        "date": 20230414,
+        "selling": 22,
+        "profit": "20000",
+        "expenses": 13
+      },
+      {
+        "id": 5,
+        "date": 20230515,
+        "selling": 22,
+        "profit": "20000",
+        "expenses": 13
+      },
+      {
+        "id": 6,
+        "date": 20230616,
+        "selling": 21,
+        "profit": "20000",
+        "expenses": 13
+      },
+      {
+        "id": 7,
+        "date": 20230717,
+        "selling": 21,
+        "profit": "20000",
+        "expenses": 14
+      },
+      {
+        "id": 8,
+        "date": 20230818,
+        "selling": 22,
+        "profit": "20000",
+        "expenses": 14
+      },
+      {
+        "id": 9,
+        "date": 20230919,
+        "selling": 22,
+        "profit": "20000",
+        "expenses": 14
+      },
+      {
+        "id": 10,
+        "date": 20231020,
+        "selling": 22,
+        "profit": "20000",
+        "expenses": 14
+      },
+      {
+        "id": 11,
+        "date": 20231121,
+        "selling": 23,
+        "profit": "21000",
+        "expenses": 310
+      },
+      {
+        "id": 12,
+        "date": 20231222,
+        "selling": 14,
+        "profit": "21000",
+        "expenses": 13
+      },
+      {
+        "id": 13,
+        "date": 20240113,
+        "selling": 29,
+        "profit": "30000",
+        "expenses": 13
+      },
+      {
+        "id": 14,
+        "date": 20240214,
+        "selling": 30,
+        "profit": "30500",
+        "expenses": 14
+      },
+      {
+        "id": 15,
+        "date": 20240315,
+        "selling": 31,
+        "profit": "30550",
+        "expenses": 15
+      },
+      {
+        "id": 16,
+        "date": 20240416,
+        "selling": 32,
+        "profit": "30600",
+        "expenses": 16
+      },
+      {
+        "id": 17,
+        "date": 20240517,
+        "selling": 33,
+        "profit": "30650",
+        "expenses": 17
+      },
+      {
+        "id": 18,
+        "date": 20240618,
+        "selling": 5,
+        "profit": "5000",
+        "expenses": 3
+      },
+      {
+        "id": 19,
+        "date": 20240619,
+        "selling": 5,
+        "profit": "5000",
+        "expenses": 4
+      },
+      {
+        "id": 20,
+        "date": 20240620,
+        "selling": 5,
+        "profit": "4000",
+        "expenses": 4
+      },
+      {
+        "id": 21,
+        "date": 20240621,
+        "selling": 4,
+        "profit": "4000",
+        "expenses": 5
+      },
+      {
+        "id": 22,
+        "date": 20240622,
+        "selling": 5,
+        "profit": "4000",
+        "expenses": 3
+      },
+      {
+        "id": 23,
+        "date": 20240623,
+        "selling": 4,
+        "profit": "4000",
+        "expenses": 2
+      },
+      {
+        "id": 24,
+        "date": 20240624,
+        "selling": 5,
+        "profit": "4000",
+        "expenses": 4
+      },
+      {
+        "id": 25,
+        "date": 20240724,
+        "selling": 4,
+        "profit": "5500",
+        "expenses": 2
+      },
+      {
+        "id": 26,
+        "date": 20240725,
+        "selling": 4,
+        "profit": "5500",
+        "expenses": 3
+      },
+      {
+        "id": 27,
+        "date": 20240726,
+        "selling": 5,
+        "profit": "5500",
+        "expenses": 2
+      },
+      {
+        "id": 28,
+        "date": 20240727,
+        "selling": 5,
+        "profit": "5501",
+        "expenses": 3
+      },
+      {
+        "id": 29,
+        "date": 20240728,
+        "selling": 5,
+        "profit": "6500",
+        "expenses": 5
+      },
+      {
+        "id": 30,
+        "date": 20240729,
+        "selling": 6,
+        "profit": "6200",
+        "expenses": 5
+      },
+      {
+        "id": 31,
+        "date": 20240730,
+        "selling": 6,
+        "profit": "6400",
+        "expenses": 4
+      },
+      {
+        "id": 32,
+        "date": 20240731,
+        "selling": 6,
+        "profit": "5500",
+        "expenses": 2
+      },
+      {
+        "id": 33,
+        "date": 20240801,
+        "selling": 3,
+        "profit": "5000",
+        "expenses": 4
+      },
+      {
+        "id": 34,
+        "date": 20240802,
+        "selling": 3,
+        "profit": "5030",
+        "expenses": 5
+      },
+      {
+        "id": 35,
+        "date": 20240803,
+        "selling": 4,
+        "profit": "5200",
+        "expenses": 4
+      },
+      {
+        "id":36,
+        "date": 20240804,
+        "selling": 4,
+        "profit": "5002",
+        "expenses": 5
+      },
+      {
+        "id": 37,
+        "date": 20240805,
+        "selling": 5,
+        "profit": "5000",
+        "expenses": 4
+      },
+      {
+        "id": 38,
+        "date": 20240806,
+        "selling": 5,
+        "profit": "5300",
+        "expenses": 4
+      },
+      {
+        "id": 39,
+        "date":20240807,
+        "selling": 5,
+        "profit": "7000",
+        "expenses": 2
+      },
+      {
+        "id": 40,
+        "date": 20240808,
+        "selling": 2,
+        "profit": "2000",
+        "expenses": 1
+      },
+      {
+        "id": 41,
+        "date": 20240909,
+        "selling": 31,
+        "profit": "39532",
+        "expenses": 20
+      },
+      {
+        "id": 42,
+        "date": 20240910,
+        "selling": 28,
+        "profit": "32500",
+        "expenses": 12
+      },
+      {
+        "id": 43,
+        "date": 20240911,
+        "selling": 39,
+        "profit": "44982",
+        "expenses": 19
+      },
+      {
+        "id": 44,
+        "date": 20241001,
+        "selling": 0,
+        "profit": "0",
+        "expenses": 0
+      },{
+        "id": 45,
+        "date": 20241102,
+        "selling": 0,
+        "profit": "0",
+        "expenses": 0
+      },
+      {
+        "id": 46,
+        "date": 20241203,
+        "selling": 0,
+        "profit": "0",
+        "expenses": 0
+      }
+    ]
+  }
+}
