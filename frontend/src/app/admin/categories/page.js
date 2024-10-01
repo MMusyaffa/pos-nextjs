@@ -41,17 +41,17 @@ export default function CategoriesList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {getCategories.map((categories, index) =>
+                    {categories && categories.map((category, index) =>
                     (
-                        <tr key={categories.id}>
+                        <tr key={category.id}>
                             <td>
                                 {index + 1}
                             </td>
                             <td>
-                                <img src={categories.image_url} style={{ maxWidth: '100px' }} />
+                                <img src={category.image_url} style={{ maxWidth: '100px' }} />
                             </td>
                             <td>
-                                {categories.name}
+                                {category.name}
                             </td>
                             <td className="flex">
                                 <div className="mr-1">
