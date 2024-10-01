@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import NavbarAdmin from "../components/Navbar";
 import { getProducts } from "@/api/products";
 import AddProduct from "./addProduct";
 import DeleteProduct from "./deleteProduct";
 import UpdateProduct from "./updateProduct";
 import { formatRupiah } from "@/utils/utils";
+
 
 export default function ProductsList() {
 
@@ -19,18 +21,16 @@ export default function ProductsList() {
             })
     }, [changes]);
 
-    return (
-        // <div className="flex">
-        //     <SideBarAdmin />
 
-        <div className="py-3 px-10 w-full ml-36">
-            <h2 className="text-3xl font-bold sm:text-4l">Dhadhu Caffee Dashboard</h2>
-            <h2 className="py-4 text-l font-medium">Welcome Admin 1 </h2>
-            <div className="py-2 pt-8">
+    return (
+        <div className="w-screen">
+            <div className="ml-56">
+                <NavbarAdmin />
+            </div>
+            <div className="ml-56 mt-5">
                 <AddProduct setChanges={setChanges} />
             </div>
-
-            <table className="table w-full">
+            <table className="table ml-56 mt-5 mb-10 w-10/12">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -68,6 +68,5 @@ export default function ProductsList() {
                 </tbody>
             </table>
         </div>
-        //</div>
     );
 } 
