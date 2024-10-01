@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getProduct } from '@/api/products';
+import { getProducts } from '@/api/products';
 import { getHistory } from '@/api/history';
 
 const calculateTotals = (sales, month, year) => {
@@ -35,7 +35,7 @@ export default function ProductPerformance() {
 
     useEffect(() => {
         async function fetchData() {
-            const [productData, salesData] = await Promise.all([getProduct(), getHistory()]);
+            const [productData, salesData] = await Promise.all([getProducts(), getHistory()]);
 
             setProducts(productData);
             setSales(salesData);
