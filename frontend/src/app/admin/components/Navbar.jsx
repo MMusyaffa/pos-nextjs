@@ -15,7 +15,7 @@ export default function NavbarAdmin() {
         categories: 'Management Category',
         boardgames: 'Management Board Game',
         users: 'Management User',
-        accounts: 'Management Account',
+        admin: 'Management Account',
         default: 'Dashboard'
     };
 

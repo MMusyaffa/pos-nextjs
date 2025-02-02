@@ -83,9 +83,15 @@ export default function SalesRecap() {
                             className="select select-bordered select-sm"
                             value={year}
                             onChange={handleYearChange}
-                            >
-                            <option value={2023}>2023</option>
-                            <option value={2024}>2024</option>
+                        >
+                            {Array.from({ length: 2030 - 2023 + 1 }, (_, index) => {
+                                const yearValue = 2023 + index;
+                                return (
+                                    <option key={yearValue} value={yearValue}>
+                                        {yearValue}
+                                    </option>
+                                );
+                            })}
                         </select>
                     </div>
                 </div>

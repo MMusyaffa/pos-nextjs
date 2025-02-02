@@ -9,6 +9,7 @@ import ProductsList from "./products/page";
 import CategoriesList from "./categories/page";
 import BoardgamesList from "./boardgames/page";
 import UsersList from "./users/page";
+import AdminProfile from "./account/page";
 import { AdminSidebarContext } from "@/utils/contexts";
 
 export default function Admin() {
@@ -26,6 +27,7 @@ export default function Admin() {
               { selectedContent === "categories" && <CategoriesList />}
               { selectedContent === "boardgames" && <BoardgamesList />}
               { selectedContent === "users" && <UsersList />}
+              { selectedContent === "admin" && <AdminProfile />}
         </div>
       </div>
     </AdminSidebarContext.Provider>

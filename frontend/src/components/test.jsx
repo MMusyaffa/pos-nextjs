@@ -2,7 +2,7 @@ import { getCategories } from "@/api/categories";
 import CategoryButton from "./CategoryButton";
 import { useEffect, useState } from "react";
 
-export default function Categories() {
+export default function Test() {
     
     const [categories, setCategories] = useState([]);
 
@@ -14,9 +14,8 @@ export default function Categories() {
         <div className="flex justify-between w-full overflow-x-auto mt-4 p-2">
             <div className="flex justify-between w-full overflow-x-auto mt-4 p-2">
                 { categories.length > 0 
-                    ? categories.map((category) => 
-                    <CategoryButton category={category} key={category.id} />)
-                    : <p>No categories available</p> // Placeholder jika data kategori belum ada atau kosong
+                    ? categories.map((category) => <CategoryButton category={category} key={category.id} />)
+                    : <p>No Test available</p> // Placeholder jika data kategori belum ada atau kosong
                 }
             </div>
         </div>
